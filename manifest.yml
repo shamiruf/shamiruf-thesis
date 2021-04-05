@@ -1,0 +1,7 @@
+applications:
+  - name: tourguideChatbotPrague
+    command: npm start
+    path: .
+    memory: 256M
+    instances: 1
+random-route: tourguidechatbotprague
