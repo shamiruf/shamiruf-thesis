@@ -34,7 +34,7 @@ const waypoints = require("./routes/api/waypoints");
 const places = require("./public/js/google_maps_api");
 
 // DB config
-const db = require("./config/keys").mongoURI;
+// const db = require("./config/keys").mongoURI;
 
 // Connect to mongoDB
 mongoose

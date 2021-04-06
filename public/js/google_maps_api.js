@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
           const linkApp = appBase;
           const linkLocal = "http://localhost:3000";
           const jsonFromDb = await axiosUsePost(
-            linkLocal + "/api/waypoints",
+            linkApp + "/api/waypoints",
             payload
           );
           console.log({ status: jsonFromDb.status });
