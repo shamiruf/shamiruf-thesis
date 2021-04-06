@@ -18,6 +18,7 @@
 "use strict";
 
 var express = require("express"); // app server
+const mongoose = require("mongoose"); // database
 var bodyParser = require("body-parser"); // parser for post requests
 var AssistantV2 = require("ibm-watson/assistant/v2"); // watson sdk
 const {
@@ -27,14 +28,32 @@ const {
 
 var app = express();
 
+const tours = require("./routes/api/tours");
+const waypoints = require("./routes/api/waypoints");
+
 const places = require("./public/js/google_maps_api");
+
+// DB config
+const db = require("./config/keys").mongoURI;
+
+// Connect to mongoDB
+mongoose
+  .connect(db)
+  .then(() => console.log(`MongoDB connected`))
+  .catch((err) => console.log(err));
 
 // Bootstrap application settings
 app.use(express.static("./public")); // load UI from public folder
 app.use(bodyParser.json());
 
-// Create the service wrapper
+// endpoints for db scheme
+app.use("/api/tours", tours);
+app.use("/api/waypoints", waypoints);
 
+// endpoint for request from Watson (webhook)
+app.use("/myplaces", places);
+
+// Create the service wrapper
 let authenticator;
 if (process.env.ASSISTANT_IAM_APIKEY) {
   authenticator = new IamAuthenticator({
@@ -72,9 +91,9 @@ app.post("/api/message", function (req, res) {
   var textIn = "";
   let context = {};
 
-  if (req.body.input) {
-    textIn = req.body.input.text;
-  }
+  // if (req.body.input) {
+  //   textIn = req.body.input.text;
+  // }
   if (req.body) {
     if (req.body.input) {
       textIn = req.body.input.text;
@@ -97,6 +116,7 @@ app.post("/api/message", function (req, res) {
     },
     context: context,
   };
+
   // Send the input to the assistant service
   assistant.message(payload, function (err, data) {
     if (err) {
@@ -121,5 +141,5 @@ app.get("/api/session", function (req, res) {
     }
   );
 });
-app.use("/myplaces", places);
+
 module.exports = app;
