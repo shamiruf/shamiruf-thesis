@@ -3,7 +3,7 @@ const axios = require("axios");
 
 const router = express.Router();
 const key = process.env.GOOGLE_MAPS_APIKEY;
-const appBase = process.env.APP_BASE;
+// const appBase = process.env.APP_BASE;
 router.get("/", function (req, res) {
   res.send("Work with places and routes.");
 });
@@ -16,35 +16,12 @@ router.post("/", async (req, res) => {
     )},Prague&inputtype=textquery&fields=place_id,formatted_address,name&key=${key}`;
     try {
       const json = await axiosUseGet(uri_find_place);
-
-      if (json.status === "OK") {
-        const payload = {
-          place_id: json.candidates[0].place_id,
-          name: json.candidates[0].name,
-          formatted_address: json.candidates[0].formatted_address,
-        };
-        // save in db if place finded
-        try {
-          const linkApp = appBase;
-          const linkLocal = "http://localhost:3000";
-          const jsonFromDb = await axiosUsePost(
-            linkLocal + "/api/waypoints",
-            payload
-          );
-          console.log({ status: jsonFromDb.status });
-          res.json({
-            statusDB: jsonFromDb.status,
-            status: json.status,
-            place_id: json.candidates[0].place_id,
-            name: json.candidates[0].name,
-            formatted_address: json.candidates[0].formatted_address,
-          });
-        } catch (err) {
-          console.error("error", err);
-        }
-      } else {
-        res.json({ status: json.status });
-      }
+      res.json({
+        status: json.status,
+        place_id: json.candidates[0].place_id,
+        name: json.candidates[0].name,
+        formatted_address: json.candidates[0].formatted_address,
+      });
     } catch (err) {
       console.error("error", err);
     }
@@ -108,22 +85,6 @@ router.post("/", async (req, res) => {
 
     // send googleMapsLinkDir
     res.json({ status: "OK", googleMapsLinkDir });
-  } else if (req.body.saveInDB === true) {
-    // save waypoint
-    if (req.body.webhook_result_2.status === "OK") {
-      const payload = {
-        place_id: req.body.webhook_result_2.place_id,
-        name: req.body.webhook_result_2.name,
-        formatted_address: req.body.webhook_result_2.formatted_address,
-      };
-      try {
-        const link = appBase || "http://localhost:3000";
-        const json = await axiosUsePost(link + "api/waypoints", payload);
-        res.json({ status: json.status });
-      } catch (err) {
-        console.error("error", err);
-      }
-    }
   } else if (req.body.startTour === true) {
     let waypoints = req.body.waypoints;
     let place = watpoints.shift();
@@ -143,11 +104,6 @@ router.post("/", async (req, res) => {
 
 const axiosUseGet = async (url) => {
   const response = await axios.get(url);
-  return response.data;
-};
-
-const axiosUsePost = async (url, payload) => {
-  const response = await axios.post(url, payload);
   return response.data;
 };
 

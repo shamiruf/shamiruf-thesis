@@ -20,6 +20,8 @@
 var express = require("express"); // app server
 const mongoose = require("mongoose"); // database
 var bodyParser = require("body-parser"); // parser for post requests
+const axios = require("axios");
+
 var AssistantV2 = require("ibm-watson/assistant/v2"); // watson sdk
 const {
   IamAuthenticator,
@@ -38,7 +40,10 @@ const places = require("./public/js/google_maps_api");
 
 // Connect to mongoDB
 mongoose
-  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log(`MongoDB connected`))
   .catch((err) => console.log(err));
 
@@ -123,7 +128,8 @@ app.post("/api/message", function (req, res) {
       const status = err.code !== undefined && err.code > 0 ? err.code : 500;
       return res.status(status).json(err);
     }
-    return res.json(data);
+    saveInDb(data);
+    if (data.result) return res.json(data);
   });
 });
 
@@ -141,5 +147,28 @@ app.get("/api/session", function (req, res) {
     }
   );
 });
+
+async function saveInDb(response) {
+  if (
+    response.result.context.skills["main skill"].user_defined?.webhook_result_2
+      ?.status === "OK"
+  ) {
+    const placeFromWatson =
+      response.result.context.skills["main skill"].user_defined
+        .webhook_result_2;
+    const placeToSave = {
+      place_id: placeFromWatson.place_id,
+      name: placeFromWatson.name,
+      formatted_address: placeFromWatson.formatted_address,
+    };
+    try {
+      const linkLocal = "http://localhost:3000";
+      const json = await axios.post(linkLocal + "/api/waypoints", placeToSave);
+      return JSON.stringify(json.status);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
 
 module.exports = app;
