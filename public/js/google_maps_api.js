@@ -28,19 +28,20 @@ router.post("/", async (req, res) => {
           const linkApp = appBase;
           const linkLocal = "http://localhost:3000";
           const jsonFromDb = await axiosUsePost(
-            linkApp + "/api/waypoints",
+            linkLocal + "/api/waypoints",
             payload
           );
           console.log({ status: jsonFromDb.status });
+          res.json({
+            statusDB: jsonFromDb.status,
+            status: json.status,
+            place_id: json.candidates[0].place_id,
+            name: json.candidates[0].name,
+            formatted_address: json.candidates[0].formatted_address,
+          });
         } catch (err) {
           console.error("error", err);
         }
-        res.json({
-          status: json.status,
-          place_id: json.candidates[0].place_id,
-          name: json.candidates[0].name,
-          formatted_address: json.candidates[0].formatted_address,
-        });
       } else {
         res.json({ status: json.status });
       }
