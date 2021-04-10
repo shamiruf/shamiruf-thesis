@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
       console.log(err);
     }
     if (waypoint) {
-      res.json({ status: "Already saved" });
+      res.json({ status: "Waypoint already saved" });
     } else {
       // construct an object to insert into db
       // create newWaypoint in memory
@@ -38,7 +38,10 @@ router.post("/", (req, res) => {
       // give us back the waypoint that is saving
       newWaypoint
         .save()
-        .then((waypoint) => res.json({ status: "Saved in db", waypoint }));
+        .then((waypoint) =>
+          res.json({ status: "Waypoint saved in db", waypoint })
+        )
+        .catch((err) => console.log(err));
     }
   });
 });

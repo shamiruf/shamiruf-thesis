@@ -5,15 +5,12 @@ const Schema = mongoose.Schema;
 const TourSchema = new Schema({
   nameTour: {
     type: String,
-    required: true,
-  },
-  travelMode: {
-    type: String,
     required: false,
   },
   waypoints: {
-    type: Array,
-    required: false,
+    type: [String],
+    default: undefined,
+    required: true,
   },
   tourDescription: {
     type: String,

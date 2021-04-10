@@ -17,16 +17,30 @@ router.get("/", (req, res) => {
 // @desc   Create A Tour
 // @access Public
 router.post("/", (req, res) => {
-  // construct an object to insert into db
-  // create newTour in memory
+  const waypoints = req.body.waypoints;
+  Tour.findOne({ waypoints: waypoints }, function (err, waypoints) {
+    if (err) {
+      console.log(err);
+    }
+    if (waypoints) {
+      res.json({ status: "Tour already saved" });
+    } else {
+      // construct an object to insert into db
+      // create newTour in memory
+      const newTour = new Tour({
+        nameTour: req.body.nameTour,
+        // mapsLink: req.body.googleMapsLinkDir,
+        waypoints: req.body.waypoints,
+      });
 
-  const newTour = new Tour({
-    nameTour: req.body.name,
+      /// save newTour in db
+      // give us back the tour that is saving
+      newTour
+        .save()
+        .then((tour) => res.json({ status: "Tour saved in db", tour }))
+        .catch((err) => console.log(err));
+    }
   });
-
-  // save newTour in db
-  // give us back the tour that is saving
-  newTour.save().then((tour) => res.json(tour));
 });
 
 // @route  DELETE api/tours

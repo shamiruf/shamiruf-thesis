@@ -163,7 +163,27 @@ async function saveInDb(response) {
     };
     try {
       const linkLocal = "http://localhost:3000";
+      const linkBase = process.env.APP_BASE;
       const json = await axios.post(linkLocal + "/api/waypoints", placeToSave);
+      return JSON.stringify(json.status);
+    } catch (err) {
+      console.log(err);
+    }
+  } else if (
+    response.result.context.skills["main skill"].user_defined?.webhook_result_6
+      ?.status === "OK"
+  ) {
+    const tourFromWatson =
+      response.result.context.skills["main skill"].user_defined
+        .webhook_result_6;
+    const tourToSave = {
+      nameTour: tourFromWatson.nameTour,
+      waypoints: tourFromWatson.orderedWaypoints,
+    };
+    try {
+      const linkLocal = "http://localhost:3000";
+      const linkBase = process.env.APP_BASE;
+      const json = await axios.post(linkLocal + "/api/tours", tourToSave);
       return JSON.stringify(json.status);
     } catch (err) {
       console.log(err);

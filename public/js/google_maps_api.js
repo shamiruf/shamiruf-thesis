@@ -63,17 +63,25 @@ router.post("/", async (req, res) => {
     const origin = waypoints[0];
     const destination = waypoints[1];
 
+    const nameTour = `${origin} - ${destination}`;
+
+    // arr without origin and destination
     let changedArr = waypoints.slice(2);
 
-    let ordered_waypoints = [];
+    let orderedWaypointsPart = [];
+    let orderedWaypointsAll = [];
     let stringToAdd = "";
 
+    // do right order of array el
     for (let i = 0; i < changedArr.length; i++) {
-      ordered_waypoints.push(changedArr[waypoint_order[i]]);
+      orderedWaypointsPart.push(changedArr[waypoint_order[i]]);
     }
+
     if (changedArr.length >= 1) {
-      stringToAdd = ordered_waypoints.join(",Prague|") + ",Prague|";
+      stringToAdd = orderedWaypointsPart.join(",Prague|") + ",Prague|";
     }
+    orderedWaypointsAll.push(origin, orderedWaypointsPart, destination);
+    const orderedWaypoints = orderedWaypointsAll.flat();
 
     const googleMapsLinkDir = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
       origin
@@ -83,8 +91,13 @@ router.post("/", async (req, res) => {
       travelMode
     )}&waypoints=${encodeURIComponent(stringToAdd)}`;
 
-    // send googleMapsLinkDir
-    res.json({ status: "OK", googleMapsLinkDir });
+    // send googleMapsLinkDir and ordered waypoints
+    res.json({
+      status: "OK",
+      nameTour,
+      googleMapsLinkDir,
+      orderedWaypoints,
+    });
   } else if (req.body.startTour === true) {
     let waypoints = req.body.waypoints;
     let place = watpoints.shift();
