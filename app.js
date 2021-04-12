@@ -129,6 +129,7 @@ app.post("/api/message", function (req, res) {
       return res.status(status).json(err);
     }
     saveInDb(data);
+    // const responseAfterProcess = processResponse(data);
     if (data.result) return res.json(data);
   });
 });
@@ -189,6 +190,17 @@ async function saveInDb(response) {
       console.log(err);
     }
   }
+}
+
+function processResponse(response) {
+  let oldResponseText = response.result.output.generic[0].text;
+  let newResponse = "";
+  if (oldResponseText === "Get place details") {
+  }
+  // console.log(oldResponseText);
+  response.result.output.generic[0].text = oldResponseText;
+  // console.log(JSON.stringify(response));
+  return response;
 }
 
 module.exports = app;

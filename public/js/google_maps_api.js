@@ -10,26 +10,54 @@ router.get("/", function (req, res) {
 
 router.post("/", async (req, res) => {
   if (req.body.getPlaceFromUser === true) {
-    let place = req.body.waypoint;
-    let uri_find_place = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
+    const place = req.body.waypoint;
+    const uri_find_place = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
       place
-    )},Prague&inputtype=textquery&fields=place_id,formatted_address,name&key=${key}`;
+    )},Prague&inputtype=textquery&fields=place_id&key=${key}`;
+
     try {
       const json = await axiosUseGet(uri_find_place);
-      res.json({
-        status: json.status,
-        place_id: json.candidates[0].place_id,
-        name: json.candidates[0].name,
-        formatted_address: json.candidates[0].formatted_address,
-      });
+      const placeId = json.candidates[0].place_id;
+      if (json.status === "OK") {
+        let uri_place_details = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(
+          placeId
+        )}&fields=name,formatted_address,photo,url&key=${key}`;
+        const json_details = await axiosUseGet(uri_place_details);
+        if (json_details.result?.photos) {
+          let photoReference1 = json_details.result.photos[0].photo_reference;
+          let photoReference2 = json_details.result.photos[1].photo_reference;
+
+          const uriGetPhotos1 = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference1}&key=${key}`;
+          const uriGetPhotos2 = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference2}&key=${key}`;
+
+          res.json({
+            status: json_details.status,
+            url: json_details.result.url,
+            name: json_details.result.name,
+            formatted_address: json_details.result.formatted_address,
+            photo1: uriGetPhotos1,
+            photo2: uriGetPhotos2,
+          });
+        } else {
+          res.json({
+            status: json_details.status,
+            url: json_details.result.url,
+            name: json_details.result.name,
+            formatted_address: json_details.result.formatted_address,
+          });
+        }
+      }
     } catch (err) {
       console.error("error", err);
     }
   } else if (req.body.finishSelectingPlaces === true) {
     let waypoints = req.body.waypoints;
-    let travelMode = req.body.travelMode;
+    const travelMode = req.body.travelMode;
+    let waypointsAllInfo = req.body.waypointsAllInfo;
+
     let origin = waypoints[0];
     let destination = waypoints[1];
+    let waypointsAllInfoOrdered = [];
 
     let changedArr = waypoints.slice(2);
     let stringToAdd = "";
@@ -48,40 +76,54 @@ router.post("/", async (req, res) => {
     )}&language=en&key=${key}`;
     try {
       const json = await axiosUseGet(uri_create_directions);
+      const waypoint_order = json.routes[0].waypoint_order;
+      waypointsAllInfoOrdered.push(waypointsAllInfo[0]);
+      if (waypoint_order.length !== 0) {
+        for (let i = 0; i < waypoint_order.length; i++) {
+          let elName = changedArr.find(
+            (element, index) => index === waypoint_order[i]
+          );
+          let elAllInfo = waypointsAllInfo.find((el) => el.name === elName);
+          waypointsAllInfoOrdered.push(elAllInfo);
+        }
+      }
+      waypointsAllInfoOrdered.push(waypointsAllInfo[1]);
+      console.log(waypointsAllInfoOrdered);
       res.json({
         status: json.status,
         waypoint_order: json.routes[0].waypoint_order,
+        waypointsAllInfoOrdered,
       });
     } catch (err) {
       console.log(err);
     }
   } else if (req.body.getGoogleMapsLink === true) {
-    const waypoints = req.body.waypoints;
-    const waypoint_order = req.body.waypoint_order;
+    const waypointsAllInfoOrdered = req.body.waypointsAllInfoOrdered;
     const travelMode = req.body.travelMode;
 
-    const origin = waypoints[0];
-    const destination = waypoints[1];
+    const origin = waypointsAllInfoOrdered[0].name;
+    const destination =
+      waypointsAllInfoOrdered[waypointsAllInfoOrdered.length - 1].name;
+
+    console.log(origin, destination);
 
     const nameTour = `${origin} - ${destination}`;
 
-    // arr without origin and destination
-    let changedArr = waypoints.slice(2);
+    console.log(`name : ${nameTour}`);
 
     let orderedWaypointsPart = [];
-    let orderedWaypointsAll = [];
     let stringToAdd = "";
 
     // do right order of array el
-    for (let i = 0; i < changedArr.length; i++) {
-      orderedWaypointsPart.push(changedArr[waypoint_order[i]]);
+    for (let i = 1; i < waypointsAllInfoOrdered.length - 1; i++) {
+      orderedWaypointsPart.push(waypointsAllInfoOrdered[i].name);
     }
+    console.log(orderedWaypointsPart);
 
-    if (changedArr.length >= 1) {
+    if (orderedWaypointsPart.length >= 1) {
       stringToAdd = orderedWaypointsPart.join(",Prague|") + ",Prague|";
     }
-    orderedWaypointsAll.push(origin, orderedWaypointsPart, destination);
-    const orderedWaypoints = orderedWaypointsAll.flat();
+    console.log(stringToAdd);
 
     const googleMapsLinkDir = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
       origin
@@ -96,22 +138,8 @@ router.post("/", async (req, res) => {
       status: "OK",
       nameTour,
       googleMapsLinkDir,
-      orderedWaypoints,
     });
-  } else if (req.body.startTour === true) {
-    let waypoints = req.body.waypoints;
-    let place = watpoints.shift();
-
-    const uri_place_details = ``;
-
-    try {
-      const json = await axiosUse(uri_place_details);
-      res.json({
-        status: json.status,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  } else if (req.body.getWikiInfo === true) {
   }
 });
 
