@@ -16,14 +16,6 @@ const WaypointSchema = new Schema({
     required: false,
   },
   waypointDescription: {
-    type: Array,
-    required: false,
-  },
-  openHours: {
-    type: Array,
-    required: false,
-  },
-  waypointWeb: {
     type: String,
     required: false,
   },

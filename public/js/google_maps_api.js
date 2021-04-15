@@ -105,11 +105,7 @@ router.post("/", async (req, res) => {
     const destination =
       waypointsAllInfoOrdered[waypointsAllInfoOrdered.length - 1].name;
 
-    console.log(origin, destination);
-
     const nameTour = `${origin} - ${destination}`;
-
-    console.log(`name : ${nameTour}`);
 
     let orderedWaypointsPart = [];
     let stringToAdd = "";
@@ -118,12 +114,9 @@ router.post("/", async (req, res) => {
     for (let i = 1; i < waypointsAllInfoOrdered.length - 1; i++) {
       orderedWaypointsPart.push(waypointsAllInfoOrdered[i].name);
     }
-    console.log(orderedWaypointsPart);
-
     if (orderedWaypointsPart.length >= 1) {
       stringToAdd = orderedWaypointsPart.join(",Prague|") + ",Prague|";
     }
-    console.log(stringToAdd);
 
     const googleMapsLinkDir = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
       origin
@@ -140,6 +133,27 @@ router.post("/", async (req, res) => {
       googleMapsLinkDir,
     });
   } else if (req.body.getWikiInfo === true) {
+    const placeNameForWiki = req.body.placeNameForWiki;
+    const readyNameForWiki = placeNameForWiki.replace(" ", "-");
+
+    const url_wiki_search = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrnamespace=0&gsrsearch=${encodeURIComponent(
+      readyNameForWiki
+    )}-prague&gsrlimit=1&prop=extracts|info&inprop=url&exsentences=4&explaintext=true&utf8=&format=json`;
+
+    try {
+      const json = await axiosUseGet(url_wiki_search);
+      if (json.query !== undefined) {
+        const pages = json.query.pages;
+        const firstEl = pages[Object.keys(pages)[0]];
+        const extract = firstEl.extract;
+        const fullUrl = firstEl.fullurl;
+        res.json({ status: "OK", extract, fullUrl });
+      } else {
+        res.json({ status: "NOT FOUND" });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 });
 
@@ -147,25 +161,5 @@ const axiosUseGet = async (url) => {
   const response = await axios.get(url);
   return response.data;
 };
-
-// {
-//   "waypoints": [
-//       "Namesti miru",
-//       "prague castle",
-//       "Vysehrad",
-//       "dejvicka",
-//       "charles bridge"
-//   ],
-//   "waypoint": "Namesti miru",
-//   "getPlaceFromUser": false,
-//   "finishSelectingPlaces": false,
-//   "getGoogleMapsLink": true,
-//   "travelMode": "bicycling",
-//   "waypoint_order": [
-//       1,
-//       2,
-//       0
-//   ]
-// }
 
 module.exports = router;
