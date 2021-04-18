@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
     } catch (err) {
       console.error("error", err);
     }
-  } else if (req.body.finishSelectingPlaces === true) {
+  } else if (req.body.getWaypointsOrder === true) {
     let waypoints = req.body.waypoints;
     const travelMode = req.body.travelMode;
     let waypointsAllInfo = req.body.waypointsAllInfo;
