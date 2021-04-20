@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 // Create Waypoint
 const WaypointSchema = new Schema({
-  place_id: {
-    type: String,
-    required: false,
-  },
   name: {
     type: String,
     required: true,
@@ -15,11 +11,15 @@ const WaypointSchema = new Schema({
     type: String,
     required: false,
   },
-  waypointDescription: {
+  url: {
     type: String,
     required: false,
   },
-  photos: {
+  photo1: {
+    type: String,
+    required: false,
+  },
+  photo2: {
     type: String,
     required: false,
   },
