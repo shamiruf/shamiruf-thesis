@@ -24,8 +24,8 @@ router.post("/", async (req, res) => {
         )}&fields=name,formatted_address,photo,url&key=${key}`;
         const json_details = await axiosUseGet(uri_place_details);
         if (json_details.result?.photos) {
-          let photoReference1 = json_details.result.photos[0].photo_reference;
-          let photoReference2 = json_details.result.photos[1].photo_reference;
+          const photoReference1 = json_details.result.photos[0].photo_reference;
+          const photoReference2 = json_details.result.photos[1].photo_reference;
 
           const uriGetPhotos1 = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference1}&key=${key}`;
           const uriGetPhotos2 = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference2}&key=${key}`;
