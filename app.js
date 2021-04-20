@@ -19,7 +19,7 @@
 
 var express = require("express"); // app server
 const mongoose = require("mongoose"); // database
-var bodyParser = require("body-parser"); // parser for post requests
+// var bodyParser = require("body-parser"); // parser for post requests
 const axios = require("axios");
 
 var AssistantV2 = require("ibm-watson/assistant/v2"); // watson sdk
@@ -32,8 +32,11 @@ var app = express();
 
 const tours = require("./routes/api/tours");
 const waypoints = require("./routes/api/waypoints");
+const users = require("./routes/api/users");
+const auth = require("./routes/api/auth");
 
 const places = require("./public/js/google_maps_api");
+const tour = require("./models/tour");
 
 // DB config
 // const db = require("./config/keys").mongoURI;
@@ -43,17 +46,21 @@ mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   })
   .then(() => console.log(`MongoDB connected`))
   .catch((err) => console.log(err));
 
 // Bootstrap application settings
 app.use(express.static("./public")); // load UI from public folder
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.json());
 
 // endpoints for db scheme
 app.use("/api/tours", tours);
 app.use("/api/waypoints", waypoints);
+app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 // endpoint for request from Watson (webhook)
 app.use("/myplaces", places);
@@ -79,7 +86,7 @@ var assistant = new AssistantV2({
 });
 
 // Endpoint to be call from the client side
-app.post("/api/message", function (req, res) {
+app.post("/api/message", async function (req, res) {
   let assistantId = process.env.ASSISTANT_ID || "<assistant-id>";
   if (!assistantId || assistantId === "<assistant-id>") {
     return res.json({
@@ -96,9 +103,6 @@ app.post("/api/message", function (req, res) {
   var textIn = "";
   let context = {};
 
-  // if (req.body.input) {
-  //   textIn = req.body.input.text;
-  // }
   if (req.body) {
     if (req.body.input) {
       textIn = req.body.input.text;
@@ -106,6 +110,21 @@ app.post("/api/message", function (req, res) {
     if (req.body.context) {
       // The client must maintain context/state
       context = req.body.context;
+      if (
+        context.skills["main skill"]?.user_defined?.tourFromDb?.length === 0
+      ) {
+        try {
+          const tourObj = await findTourInDb(textIn);
+          const waypoints = tourObj.waypoints;
+          const waypointsAllInfoOrdered = await findWaypointsInDb(waypoints);
+          context.skills["main skill"].user_defined.tourFromDb.push(tourObj);
+          context.skills[
+            "main skill"
+          ].user_defined.waypointsAllInfoOrdered = waypointsAllInfoOrdered;
+        } catch (err) {
+          console.log(err);
+        }
+      }
     }
   }
 
@@ -157,15 +176,12 @@ async function saveInDb(response) {
     const placeFromWatson =
       response.result.context.skills["main skill"].user_defined
         .webhook_result_2;
-    const placeToSave = {
-      place_id: placeFromWatson.place_id,
-      name: placeFromWatson.name,
-      formatted_address: placeFromWatson.formatted_address,
-    };
     try {
-      const linkLocal = "http://localhost:3000";
-      const linkBase = process.env.APP_BASE;
-      const json = await axios.post(linkLocal + "/api/waypoints", placeToSave);
+      const linkLocal = "http://localhost:5000";
+      const json = await axios.post(
+        linkLocal + "/api/waypoints",
+        placeFromWatson
+      );
       return JSON.stringify(json.status);
     } catch (err) {
       console.log(err);
@@ -177,19 +193,49 @@ async function saveInDb(response) {
     const tourFromWatson =
       response.result.context.skills["main skill"].user_defined
         .webhook_result_6;
+    const waypoints = response.result.context.skills[
+      "main skill"
+    ].user_defined.webhook_result_5.waypointsAllInfoOrdered.map(
+      (placeObj) => placeObj.name
+    );
     const tourToSave = {
       nameTour: tourFromWatson.nameTour,
-      waypoints: tourFromWatson.orderedWaypoints,
+      mapsLink: tourFromWatson.googleMapsLinkDir,
+      waypoints,
     };
     try {
-      const linkLocal = "http://localhost:3000";
-      const linkBase = process.env.APP_BASE;
+      const linkLocal = "http://localhost:5000";
       const json = await axios.post(linkLocal + "/api/tours", tourToSave);
       return JSON.stringify(json.status);
     } catch (err) {
       console.log(err);
     }
   }
+}
+
+async function findTourInDb(nameTour) {
+  try {
+    const linkLocal = "http://localhost:5000";
+    const json = await axios.get(linkLocal + `/api/tours/${nameTour}`);
+    return json.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function findWaypointsInDb(waypoints) {
+  let waypointsAllInfoOrdered = [];
+  for (let i = 0; i < waypoints.length; i++) {
+    let placeName = waypoints[i];
+    try {
+      const linkLocal = "http://localhost:5000";
+      const json = await axios.get(linkLocal + `/api/waypoints/${placeName}`);
+      waypointsAllInfoOrdered.push(json.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return waypointsAllInfoOrdered;
 }
 
 function processResponse(response) {
