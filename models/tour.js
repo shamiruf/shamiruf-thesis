@@ -11,24 +11,13 @@ const TourSchema = new Schema({
     type: [String],
     default: undefined,
     required: true,
+    unique: true,
   },
   tourDescription: {
     type: String,
     required: false,
   },
   mapsLink: {
-    type: String,
-    required: false,
-  },
-  image: {
-    type: String,
-    required: false,
-  },
-  time: {
-    type: Number,
-    required: false,
-  },
-  length: {
     type: String,
     required: false,
   },
