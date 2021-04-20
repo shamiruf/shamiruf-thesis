@@ -9,9 +9,23 @@ const Waypoint = require("../../models/waypoint");
 // @route  GET api/waypoints
 // @desc   Get All Waypoints
 // @access Public
-// "/" represents api/waypoints endpoint
 router.get("/", (req, res) => {
   Waypoint.find().then((waypoints) => res.json(waypoints));
+});
+
+// @route  GET api/waypoints
+// @desc   Get One waypoint
+// @access Public
+router.get("/:name", (req, res) => {
+  Waypoint.findOne({ name: req.params.name }, function (err, waypoint) {
+    if (err) {
+      console.log(err);
+    }
+    if (!waypoint) {
+      res.json({ status: "NOT FOUND" });
+    }
+    res.json(waypoint);
+  });
 });
 
 // @route  POST api/waypoints
@@ -30,8 +44,10 @@ router.post("/", (req, res) => {
       // create newWaypoint in memory
       const newWaypoint = new Waypoint({
         name: req.body.name,
-        place_id: req.body.place_id,
         formatted_address: req.body.formatted_address,
+        url: req.body.url,
+        photo1: req.body.photo1,
+        photo2: req.body.photo2,
       });
 
       // save newWaypoint in db
