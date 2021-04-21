@@ -136,12 +136,12 @@ router.post("/", async (req, res) => {
     const placeNameForWiki = req.body.placeNameForWiki;
     const readyNameForWiki = placeNameForWiki.replace(" ", "-");
 
-    const url_wiki_search = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrnamespace=0&gsrsearch=${encodeURIComponent(
+    const urlWikiSearch = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrnamespace=0&gsrsearch=${encodeURIComponent(
       readyNameForWiki
     )}-prague&gsrlimit=1&prop=extracts|info&inprop=url&exsentences=4&explaintext=true&utf8=&format=json`;
 
     try {
-      const json = await axiosUseGet(url_wiki_search);
+      const json = await axiosUseGet(urlWikiSearch);
       if (json.query !== undefined) {
         const pages = json.query.pages;
         const firstEl = pages[Object.keys(pages)[0]];
@@ -153,6 +153,62 @@ router.post("/", async (req, res) => {
       }
     } catch (err) {
       console.log(err);
+    }
+  } else if (req.body.getNearbyPlaces === true) {
+    const location = req.body.location;
+    const categoryOfInterest = req.body.categoryOfInterest;
+    const uri_find_place = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
+      location
+    )},Prague&inputtype=textquery&fields=geometry&key=${key}`;
+
+    try {
+      const json = await axiosUseGet(uri_find_place);
+      const locationLat = json.candidates[0].geometry.location.lat;
+      const locationLng = json.candidates[0].geometry.location.lng;
+      const uri_nearby = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${encodeURIComponent(
+        locationLat
+      )},${encodeURIComponent(
+        locationLng
+      )}&radius=1500&keyword=${encodeURIComponent(
+        categoryOfInterest
+      )}&key=${key}`;
+      const json_nearby = await axiosUseGet(uri_nearby);
+      let placesArray = [];
+
+      for (let i = 0; i < json_nearby.results.length; i++) {
+        let findedPlace = json_nearby.results[i];
+        if (
+          findedPlace?.business_status !== "OPERATIONAL" ||
+          findedPlace?.opening_hours === undefined ||
+          findedPlace?.opening_hours?.open_now === false
+        ) {
+          continue;
+        }
+        let openNow = "";
+        let mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          findedPlace.name
+        )},prague`;
+        if (findedPlace?.opening_hours?.open_now === true) {
+          openNow = "Open now";
+        }
+        let readyPlaceForResponse = {
+          name: findedPlace.name,
+          rating: findedPlace.rating,
+          address: findedPlace.vicinity,
+          mapsUrl,
+          openNow,
+        };
+        placesArray.push(readyPlaceForResponse);
+        if (placesArray.length === 3) {
+          break;
+        }
+      }
+      const mapsUrlCategorySearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        categoryOfInterest
+      )},prague`;
+      res.json({ placesArray, mapsUrlCategorySearch });
+    } catch (err) {
+      console.error("error", err);
     }
   }
 });
