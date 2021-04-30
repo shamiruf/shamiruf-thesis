@@ -1,35 +1,38 @@
 import React, { Component } from "react";
-import AppNavbar from "./components/AppNavbar";
-import ToursList from "./components/ToursList";
-import TourModal from "./components/tourModal";
-import { Container } from "reactstrap";
-
-import { Provider } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import store from "./store";
 import { loadUser } from "./actions/authActions";
 
+// Pages
+import MainPage from "./pages";
+import DialogPage from "./pages/dialog";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-// import PrahaImage from "./public/prague1.jpg";
 
 class App extends Component {
   componentDidMount() {
-    store.dispatch(loadUser());
+    // store.dispatch(loadUser());
   }
   render() {
     return (
-      <Provider store={store}>
-        <div className="App">
-          <header className="App-header">
-            {/* <img src={PrahaImage} alt=" Praha image"></img> */}
-            <AppNavbar />
-            <Container>
-              <TourModal />
-              <ToursList />
-            </Container>
-          </header>
-        </div>
-      </Provider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/dialog" component={DialogPage} />
+        </Switch>
+        {/* <Provider store={store}>
+          <div className="App">
+            <header className="App-header">
+              <AppNavbar />
+              <HeroSection />
+              <Container>
+                <ToursList />
+              </Container>
+            </header>
+          </div>
+        </Provider> */}
+      </Router>
     );
   }
 }
