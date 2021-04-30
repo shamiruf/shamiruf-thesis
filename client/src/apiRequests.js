@@ -5,9 +5,10 @@ export let sessionId = "";
 let latestResponse = {};
 
 export const getSessionId = async () => {
-  axios.get(baseEndpoint + "api/session").then((res) => {
+  await axios.get(baseEndpoint + "api/session").then((res) => {
     sessionId = res.data.result.session_id;
   });
+  return sessionId;
 };
 
 export const sendMessage = async (message) => {

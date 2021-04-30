@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 
-import ChatWindow from "./ChatWindow";
 import ReturnBtn from "./ReturnBtn";
 import BotMsg from "./BotMsg";
 import UserMsg from "./UserMsg";
-import { sendMessage } from "../../apiRequests";
+import { sendMessage, getSessionId } from "../../apiRequests";
 
 import "./style.css";
 
@@ -14,9 +13,15 @@ class ChatContainer extends Component {
     this.state = {
       message: "",
       conversation: [],
-      firstMessage: false,
     };
   }
+
+  getFirstMessageFromWatson = async () => {
+    const watsonMessage = await sendMessage("");
+    this.setState({
+      conversation: [...this.state.conversation, watsonMessage],
+    });
+  };
 
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -24,6 +29,9 @@ class ChatContainer extends Component {
 
   componentDidMount() {
     this.scrollToBottom();
+    getSessionId().then(() => {
+      this.getFirstMessageFromWatson();
+    });
   }
 
   componentDidUpdate() {
@@ -58,14 +66,6 @@ class ChatContainer extends Component {
   cancelCourse = () => {
     this.setState({
       message: "",
-    });
-  };
-
-  getFirstMessageFromWatson = async () => {
-    const watsonMessage = await sendMessage("");
-    this.setState({
-      conversation: [...this.state.conversation, watsonMessage],
-      firstMessage: true,
     });
   };
 
@@ -113,8 +113,6 @@ class ChatContainer extends Component {
             </label>
           </div>
         </div>
-
-        {/* <ChatWindow /> */}
       </div>
     );
   }
