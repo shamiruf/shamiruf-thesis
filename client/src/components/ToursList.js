@@ -26,10 +26,20 @@ class ToursList extends Component {
   render() {
     const { tours } = this.props.tour;
     return (
-      <Container>
+      <Container className="mb-5">
         <ListGroup>
           <TransitionGroup className="tours-list">
-            {tours.map(({ _id, nameTour, waypoints }) => (
+            {" "}
+            {this.props.isAuthenticated ? (
+              <h4 style={{ textAlign: "center" }} className="mb-5">
+                All ready tours
+              </h4>
+            ) : (
+              <h4 style={{ textAlign: "center" }} className="mb-5">
+                All ready tours
+              </h4>
+            )}
+            {tours.map(({ _id, nameTour }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
                   {this.props.isAuthenticated ? (
@@ -42,7 +52,7 @@ class ToursList extends Component {
                       &times;
                     </Button>
                   ) : null}
-                  {nameTour} ({waypoints.join(", ")})
+                  {nameTour}
                 </ListGroupItem>
               </CSSTransition>
             ))}
@@ -58,5 +68,6 @@ const mapStateToProps = (state) => ({
   tour: state.tour,
   isAuthenticated: state.auth.isAuthenticated,
 });
+
 // mapsStateToProps - take tours state and map it to component property
 export default connect(mapStateToProps, { getTours, deleteTour })(ToursList);
