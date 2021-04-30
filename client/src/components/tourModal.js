@@ -49,9 +49,7 @@ class TourModal extends Component {
           <Button color="dark" style={{ margin: "2rem" }} onClick={this.toggle}>
             Add tour
           </Button>
-        ) : (
-          <h4 className="mb-3 ml-4"> Please log in to manage tours </h4>
-        )}
+        ) : null}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add to Tours List</ModalHeader>
           <ModalBody>
