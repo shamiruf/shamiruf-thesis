@@ -35,7 +35,7 @@ const waypoints = require("./routes/api/waypoints");
 const users = require("./routes/api/users");
 const auth = require("./routes/api/auth");
 
-const places = require("./public/js/google_maps_api");
+const places = require("./public/js/webhook_from_wa");
 const tour = require("./models/tour");
 
 // DB config
@@ -51,6 +51,12 @@ mongoose
   .then(() => console.log(`MongoDB connected`))
   .catch((err) => console.log(err));
 
+app.use((req, res, next) => {
+  res.append("Access-Control-Allow-Origin", ["*"]);
+  res.append("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.append("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 // Bootstrap application settings
 app.use(express.static("./public")); // load UI from public folder
 // app.use(bodyParser.json());
@@ -127,7 +133,6 @@ app.post("/api/message", async function (req, res) {
       }
     }
   }
-
   var payload = {
     assistantId: assistantId,
     sessionId: req.body.session_id,
