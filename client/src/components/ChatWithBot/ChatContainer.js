@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import parse from "html-react-parser";
 
 import ReturnBtn from "./ReturnBtn";
 import BotMsg from "./BotMsg";
 import UserMsg from "./UserMsg";
 import { sendMessage, getSessionId } from "../../apiRequests";
+import { SiProbot } from "react-icons/si";
 
 import "./style.css";
 
@@ -44,23 +46,43 @@ class ChatContainer extends Component {
 
   keyPress = async (e) => {
     if (e.keyCode === 13) {
-      this.setState({
-        conversation: [
-          ...this.state.conversation,
-          { isUser: true, message: this.state.message },
-        ],
-      });
+      this.sendMessageFunc(this.state.message);
+      // this.setState({
+      //   conversation: [
+      //     ...this.state.conversation,
+      //     { isUser: true, message: this.state.message },
+      //   ],
+      // });
 
-      const watsonMessage = await sendMessage(this.state.message);
-      // CHANGE clear input after send message
-      this.setState({
-        message: "",
-      });
+      // const watsonMessage = await sendMessage(this.state.message);
+      // // CHANGE clear input after send message
+      // this.setState({
+      //   message: "",
+      // });
 
-      this.setState({
-        conversation: [...this.state.conversation, watsonMessage],
-      });
+      // this.setState({
+      //   conversation: [...this.state.conversation, watsonMessage],
+      // });
     }
+  };
+
+  sendMessageFunc = async (message) => {
+    this.setState({
+      conversation: [
+        ...this.state.conversation,
+        { isUser: true, message: message },
+      ],
+    });
+
+    const watsonMessage = await sendMessage(message);
+    // CHANGE clear input after send message
+    this.setState({
+      message: "",
+    });
+
+    this.setState({
+      conversation: [...this.state.conversation, watsonMessage],
+    });
   };
 
   cancelCourse = () => {
@@ -78,15 +100,68 @@ class ChatContainer extends Component {
         className="chat-container"
       >
         <ReturnBtn />
+
         <div>
           <div style={{ height: "80vh" }} className="scrollingChat">
             {this.state.conversation.map((item, index) => {
+              console.log(!item.isUser ? item.message : null);
               return (
                 <div key={index}>
                   {item.isUser ? (
                     <UserMsg className="mb-1" message={item.message} />
                   ) : (
-                    <BotMsg message={item.message} />
+                    <div className="from-watson">
+                      <SiProbot color="#9855d4" size="35px" />
+                      <div className="from-watson-p ">
+                        {item.message.map((botMsg, index) => {
+                          if (botMsg.type === "image") {
+                            return (
+                              <div key={index}>
+                                <img
+                                  src={botMsg.image.source}
+                                  width="300px"
+                                ></img>
+                              </div>
+                            );
+                          } else if (botMsg.type === "option") {
+                            const { description, list, title } = botMsg.option;
+                            return (
+                              <div key={index}>
+                                <div>
+                                  <p>{title}</p>
+                                  <p>{description}</p>
+                                  <ul>
+                                    {list.map((option, index) => {
+                                      return (
+                                        <div key={index}>
+                                          <li>
+                                            <div
+                                              onClick={() => {
+                                                this.sendMessageFunc(
+                                                  option.valueToSendFromUser
+                                                );
+                                              }}
+                                              className="options-list"
+                                            >
+                                              {option.label}
+                                            </div>
+                                          </li>
+                                        </div>
+                                      );
+                                    })}
+                                  </ul>
+                                </div>
+                              </div>
+                            );
+                          } else if (botMsg.type === "text") {
+                            return (
+                              <div key={index}>{parse(botMsg.innerhtml)}</div>
+                            );
+                          }
+                        })}
+                      </div>
+                    </div>
+                    // <BotMsg message={item.message} />
                   )}
                 </div>
               );

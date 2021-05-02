@@ -42,7 +42,6 @@ export const sendMessage = async (message) => {
     });
     watsonAnswear = {
       isUser: false,
-      // message: res.data.result.output.generic[0]?.text,
       message: [...responses],
     };
   });
@@ -59,10 +58,9 @@ const getResponse = (responses, gen) => {
     description = "<div>" + gen.description + "</div>";
   }
   if (gen.response_type === "image") {
-    var img = '<div><img src="' + gen.source + '" width="300"></div>';
     responses.push({
       type: gen.response_type,
-      innerhtml: title + description + img,
+      image: { title, description, source: gen.source },
     });
   } else if (gen.response_type === "text") {
     responses.push({

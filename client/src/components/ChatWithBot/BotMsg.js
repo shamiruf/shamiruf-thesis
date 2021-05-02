@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { SiProbot } from "react-icons/si";
 
-import OptionTypeMessage from "./OptionTypeMessage";
-
 export class BotMsg extends Component {
   render() {
     return (
@@ -12,15 +10,36 @@ export class BotMsg extends Component {
         <SiProbot color="#9855d4" size="35px" />
         <div className="from-watson-p ">
           {this.props.message.map((item, index) => {
-            return (
-              <div key={index}>
-                {item.type === "option" ? (
-                  <OptionTypeMessage option={item.option} />
-                ) : (
-                  item.innerhtml
-                )}
-              </div>
-            );
+            if (item.type === "image") {
+              return (
+                <div key={index}>
+                  <img src={item.image.source}></img>
+                </div>
+              );
+            } else if (item.type === "option") {
+              const { description, list, title } = item.option;
+              return (
+                <div key={index}>
+                  <div>
+                    <p>{title}</p>
+                    <p>{description}</p>
+                    <ul>
+                      {list.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <li>
+                              <div className="options-list">{item.label}</div>
+                            </li>
+                          </div>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              );
+            } else if (item.type === "text") {
+              return <div key={index}>{item.innerhtml}</div>;
+            }
           })}
         </div>
       </div>
