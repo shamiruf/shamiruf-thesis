@@ -18,23 +18,41 @@ router.get("/", (req, res) => {
 // @desc   Get One Tour
 // @access Public
 router.get("/:nameTour", (req, res) => {
-  Tour.findOne({ nameTour: req.params.nameTour }, function (err, tour) {
-    if (err) {
-      console.log(err);
-    }
-    if (!tour) {
-      res.json({ status: "NOT FOUND" });
-    }
-    res.json(tour);
+  try {
+    Tour.findOne({ nameTour: req.params.nameTour }, function (err, tour) {
+      if (err) {
+        console.log(err);
+      }
+      if (!tour) {
+        return res.json({ status: "NOT FOUND" });
+      }
+      res.json(tour);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// @route  POST api/tours/updateRating
+// @desc   Update Tour Rating
+// @access Private
+router.post("/updateRating", async (req, res) => {
+  // console.log(JSON.stringify(req));
+  const nameTour = { nameTour: req.body.nameTour };
+  const totalRatingToSave = {
+    totalRating: req.body.totalRating,
+    ratingAmount: req.body.newRatingAmount,
+  };
+  await Tour.findOneAndUpdate(nameTour, totalRatingToSave, {
+    useFindAndModify: false,
   });
+
+  res.json({ status: "Updated" });
 });
 
 // @route  POST api/tours
 // @desc   Create A Tour
 // @access Private
-
-// TODO
-// ADD AUTH like 2 argument
 router.post("/", (req, res) => {
   const waypoints = req.body.waypoints;
   Tour.findOne({ waypoints: waypoints }, function (err, waypoints) {
@@ -66,10 +84,7 @@ router.post("/", (req, res) => {
 // @route  DELETE api/tours
 // @desc   DELETE An Tour
 // @access Private
-
-// TODO
-// ADD AUTH like 2 argument
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   Tour.findById(req.params.id)
     .then((tour) => tour.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));

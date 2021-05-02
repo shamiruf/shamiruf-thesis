@@ -215,6 +215,62 @@ async function saveInDb(response) {
     } catch (err) {
       console.log(err);
     }
+  } else if (
+    response.result.context.skills["main skill"].user_defined?.rating !== ""
+  ) {
+    let tourForRating =
+      response.result.context.skills["main skill"].user_defined.tourFromDb[0];
+    const ratingFromUser =
+      response.result.context.skills["main skill"].user_defined.rating;
+    const tourFromDbForRating = await findTourInDb(tourForRating.nameTour);
+    switch (ratingFromUser) {
+      case "I really liked it!":
+        tourFromDbForRating.ratingAmount.five += 1;
+        break;
+      case "Good!":
+        tourFromDbForRating.ratingAmount.four += 1;
+        break;
+      case "Just fine":
+        tourFromDbForRating.ratingAmount.three += 1;
+        break;
+      case "Not very good.":
+        tourFromDbForRating.ratingAmount.two += 1;
+        break;
+      case "Bad.":
+        tourFromDbForRating.ratingAmount.one += 1;
+        break;
+    }
+    const newRatingAmount = tourFromDbForRating.ratingAmount;
+    const totalAmount =
+      tourFromDbForRating.ratingAmount.five +
+      tourFromDbForRating.ratingAmount.four +
+      tourFromDbForRating.ratingAmount.three +
+      tourFromDbForRating.ratingAmount.two +
+      tourFromDbForRating.ratingAmount.one;
+
+    const totalRating =
+      (5 * tourFromDbForRating.ratingAmount.five +
+        4 * tourFromDbForRating.ratingAmount.four +
+        3 * tourFromDbForRating.ratingAmount.three +
+        2 * tourFromDbForRating.ratingAmount.two +
+        1 * tourFromDbForRating.ratingAmount.one) /
+      totalAmount;
+
+    const objToSend = {
+      nameTour: tourFromDbForRating.nameTour,
+      totalRating: totalRating,
+      newRatingAmount: newRatingAmount,
+    };
+    try {
+      const linkLocal = "http://localhost:5000";
+      const json = await axios.post(
+        linkLocal + "/api/tours/updateRating",
+        objToSend
+      );
+      return JSON.stringify(json.status);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 

@@ -21,9 +21,17 @@ const TourSchema = new Schema({
     type: String,
     required: false,
   },
-  rating: {
+  ratingAmount: {
+    five: { type: Number, default: 0 },
+    four: { type: Number, default: 0 },
+    three: { type: Number, default: 0 },
+    two: { type: Number, default: 0 },
+    one: { type: Number, default: 0 },
+  },
+  totalRating: {
     type: Number,
     required: false,
+    default: 0,
   },
 });
 
