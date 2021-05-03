@@ -8,7 +8,7 @@ export class DialogPage extends Component {
     return (
       <div className="responsive-columns-wrapper">
         <div className="chat-column-holder responsive-column">
-          <ChatContainer />
+          <ChatContainer message={this.props.location.state} />
         </div>
       </div>
     );

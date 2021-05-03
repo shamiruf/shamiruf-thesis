@@ -216,6 +216,7 @@ async function saveInDb(response) {
       console.log(err);
     }
   } else if (
+    response.result.context.skills["main skill"].user_defined?.rating &&
     response.result.context.skills["main skill"].user_defined?.rating !== ""
   ) {
     let tourForRating =

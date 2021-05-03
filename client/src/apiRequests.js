@@ -12,9 +12,29 @@ export const getSessionId = async () => {
 };
 
 export const sendMessage = async (message) => {
+  console.log(3);
+  console.log(message);
   let context = {};
   if (latestResponse) {
     context = latestResponse.context;
+  }
+  if (
+    message === "Old Town tour" ||
+    message === "From Vinohrady to Zizkov tour" ||
+    message === "Holesovice tour" ||
+    message === "Little Quarter tour"
+  ) {
+    const contextWithTourArray = {
+      skills: {
+        "main skill": {
+          user_defined: {
+            tourFromDb: [],
+            waypointsAllInfoOrdered: [],
+          },
+        },
+      },
+    };
+    context = contextWithTourArray;
   }
 
   const body = {

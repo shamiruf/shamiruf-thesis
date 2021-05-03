@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import parse from "html-react-parser";
 
 import ReturnBtn from "./ReturnBtn";
-import BotMsg from "./BotMsg";
 import UserMsg from "./UserMsg";
 import { sendMessage, getSessionId } from "../../apiRequests";
 import { SiProbot } from "react-icons/si";
@@ -18,8 +17,8 @@ class ChatContainer extends Component {
     };
   }
 
-  getFirstMessageFromWatson = async () => {
-    const watsonMessage = await sendMessage("");
+  getFirstMessageFromWatson = async (message) => {
+    const watsonMessage = await sendMessage(message);
     this.setState({
       conversation: [...this.state.conversation, watsonMessage],
     });
@@ -32,7 +31,7 @@ class ChatContainer extends Component {
   componentDidMount() {
     this.scrollToBottom();
     getSessionId().then(() => {
-      this.getFirstMessageFromWatson();
+      this.getFirstMessageFromWatson(this.props.message);
     });
   }
 
@@ -47,22 +46,6 @@ class ChatContainer extends Component {
   keyPress = async (e) => {
     if (e.keyCode === 13) {
       this.sendMessageFunc(this.state.message);
-      // this.setState({
-      //   conversation: [
-      //     ...this.state.conversation,
-      //     { isUser: true, message: this.state.message },
-      //   ],
-      // });
-
-      // const watsonMessage = await sendMessage(this.state.message);
-      // // CHANGE clear input after send message
-      // this.setState({
-      //   message: "",
-      // });
-
-      // this.setState({
-      //   conversation: [...this.state.conversation, watsonMessage],
-      // });
     }
   };
 
@@ -120,6 +103,7 @@ class ChatContainer extends Component {
                                 <img
                                   src={botMsg.image.source}
                                   width="300px"
+                                  alt="Tour photo"
                                 ></img>
                               </div>
                             );
