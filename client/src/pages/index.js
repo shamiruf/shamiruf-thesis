@@ -5,7 +5,8 @@ import store from "../store";
 
 import ToursList from "../components/ToursList";
 import AppNavbar from "../components/AppNavbar";
-import HeroSection from "../components/HeroSection/HeroSection";
+import HeroSection from "../components/HeroSection";
+import Footer from "../components/Footer";
 
 export class MainPage extends Component {
   render() {
@@ -15,11 +16,11 @@ export class MainPage extends Component {
           <header className="App-header">
             <AppNavbar />
             <HeroSection />
-            <Container>
-              {/* <TourModal /> */}
-              <ToursList />
-            </Container>
           </header>
+          <Container>
+            <ToursList />
+          </Container>
+          <Footer />
         </div>
       </Provider>
     );

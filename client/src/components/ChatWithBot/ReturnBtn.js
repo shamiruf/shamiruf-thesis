@@ -1,4 +1,3 @@
-import { Button } from "reactstrap";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
