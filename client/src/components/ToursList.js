@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-// to get state from redux into react component
+import { Container } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
+import "./responsive.css";
 
 import { getTours, deleteTour } from "../actions/tourActions.js";
 class ToursList extends Component {
@@ -19,46 +20,67 @@ class ToursList extends Component {
     this.props.getTours();
   }
 
-  onDeleteClick = (id) => {
-    this.props.deleteTour(id);
-  };
-
   render() {
     const { tours } = this.props.tour;
     return (
-      <Container className="mb-5">
-        <ListGroup>
-          <TransitionGroup className="tours-list">
-            {" "}
-            {this.props.isAuthenticated ? (
-              <h4 style={{ textAlign: "center" }} className="mb-5">
-                All ready tours
-              </h4>
-            ) : (
-              <h4 style={{ textAlign: "center" }} className="mb-5">
-                All ready tours
-              </h4>
-            )}
-            {tours.map(({ _id, nameTour }) => (
-              <CSSTransition key={_id} timeout={500} classNames="fade">
-                <ListGroupItem>
-                  {this.props.isAuthenticated ? (
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
-                    >
-                      &times;
-                    </Button>
-                  ) : null}
-                  {nameTour}
-                </ListGroupItem>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </ListGroup>
-      </Container>
+      <div>
+        <Container>
+          <h1 style={{ textAlign: "center" }} className="mb-5">
+            Ready tours
+          </h1>
+          {tours.map((tour, index) => {
+            let src = "";
+            if (tour.nameTour === "Little Quarter tour") {
+              src = "/images/little_quarter.jpg";
+            } else if (tour.nameTour === "Holesovice tour") {
+              src = "/images/holesovice.jpg";
+            } else if (tour.nameTour === "Old Town tour") {
+              src = "/images/old_town2.jpg";
+            } else if (tour.nameTour === "From Vinohrady to Zizkov tour") {
+              src = "/images/zizkov.jpg";
+            }
+            return (
+              <div key={index} className="mb-4 sm">
+                <hr />
+                <div key={index} style={{ display: "flex" }}>
+                  <img
+                    style={{ borderRadius: "20px", marginRight: "48px" }}
+                    src={src}
+                    width="300px"
+                    alt="Tour photo"
+                  />
+                  <div style={{ textAlign: "center" }}>
+                    <h2 style={{ marginBottom: "1.25rem" }}>{tour.nameTour}</h2>
+                    <p style={{ marginBottom: "1.25rem" }}>
+                      <b>Rating: </b>
+                      {Math.round(tour.totalRating * 10) / 10} <br />
+                      <b>Duration:</b> 1 hour <br />
+                      <b>Waypoints:</b> {tour.waypoints.length}
+                    </p>
+                    <p className="p-style">{tour.tourDescription}</p>
+                    <p className="p-style">
+                      <b>What you will see:</b> {tour.waypoints.join(" - ")}
+                    </p>
+                    <div>
+                      <Link
+                        to={{
+                          pathname: "/dialog",
+                          state: tour.nameTour,
+                        }}
+                      >
+                        <Button style={{ backgroundColor: "#1b2f56" }}>
+                          Start tour
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+              </div>
+            );
+          })}
+        </Container>
+      </div>
     );
   }
 }
