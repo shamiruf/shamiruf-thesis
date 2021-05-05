@@ -6,6 +6,7 @@ import store from "../store";
 import ToursList from "../components/ToursList";
 import AppNavbar from "../components/AppNavbar";
 import HeroSection from "../components/HeroSection";
+import Cards from "../components/Cards";
 import Footer from "../components/Footer";
 
 export class MainPage extends Component {
@@ -20,6 +21,7 @@ export class MainPage extends Component {
           <Container>
             <ToursList />
           </Container>
+          <Cards />
           <Footer />
         </div>
       </Provider>
