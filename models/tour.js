@@ -33,6 +33,9 @@ const TourSchema = new Schema({
     required: false,
     default: 0,
   },
+  duration: {
+    type: String,
+  },
 });
 
 // Access to this file
