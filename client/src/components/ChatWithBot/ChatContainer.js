@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import parse from "html-react-parser";
 
 import ReturnBtn from "./ReturnBtn";
-import UserMsg from "./UserMsg";
 import { sendMessage, getSessionId } from "../../apiRequests";
 import { SiProbot } from "react-icons/si";
 
@@ -29,7 +28,7 @@ class ChatContainer extends Component {
   };
 
   componentDidMount() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
     getSessionId().then(() => {
       this.getFirstMessageFromWatson(this.props.message);
     });
@@ -83,28 +82,27 @@ class ChatContainer extends Component {
         className="chat-container"
       >
         <ReturnBtn />
-
         <div>
           <div style={{ height: "80vh" }} className="scrollingChat">
             {this.state.conversation.map((item, index) => {
-              console.log(!item.isUser ? item.message : null);
               return (
                 <div key={index}>
                   {item.isUser ? (
-                    <UserMsg className="mb-1" message={item.message} />
+                    <div key={index} className="from-user mb-3">
+                      <div className="from-user-text">
+                        <p className="from-user-p">{item.message}</p>
+                      </div>
+                    </div>
                   ) : (
                     <div className="from-watson">
                       <SiProbot color="#9855d4" size="35px" />
                       <div className="from-watson-p ">
                         {item.message.map((botMsg, index) => {
                           if (botMsg.type === "image") {
+                            let src = botMsg.image.source;
                             return (
                               <div key={index}>
-                                <img
-                                  src={botMsg.image.source}
-                                  width="300px"
-                                  alt="Tour photo"
-                                ></img>
+                                <img src={src} width="300px" alt="Tour"></img>
                               </div>
                             );
                           } else if (botMsg.type === "option") {
@@ -141,6 +139,8 @@ class ChatContainer extends Component {
                             return (
                               <div key={index}>{parse(botMsg.innerhtml)}</div>
                             );
+                          } else {
+                            return <div>Sorry</div>;
                           }
                         })}
                       </div>
