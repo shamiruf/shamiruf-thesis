@@ -1,6 +1,7 @@
 import React from "react";
-import { Button } from "reactstrap";
+import { Button, Container } from "reactstrap";
 import { Link } from "react-router-dom";
+import "./responsive.css";
 
 function HeroSection() {
   return (
@@ -10,29 +11,33 @@ function HeroSection() {
         backgroundSize: "cover",
         height: "600px",
         width: "auto",
+        marginBottom: "3rem",
+        paddingTop: "1.5rem",
       }}
-      className="mb-5"
     >
-      <div
-        style={{
-          position: "relative",
-          width: "350px",
-          textAlign: "center",
-          marginLeft: "auto",
-          marginRight: "5rem",
-        }}
-      >
-        <div>
-          <h2>Choose or create any tour and go through it with chatbot</h2>
+      <Container>
+        <div
+          style={{
+            position: "relative",
+            textAlign: "center",
+            marginLeft: "auto",
+            float: "right",
+            maxWidth: "500px",
+            minWidth: "auto",
+          }}
+        >
+          <div>
+            <h3>Choose or create any tour and go through it with chatbot</h3>
+          </div>
+          <div style={{ marginTop: "1.2rem" }}>
+            <Link to={{ pathname: "/dialog", state: "" }}>
+              <Button style={{ backgroundColor: "#1b2f56", marginTop: "" }}>
+                Start dialog
+              </Button>
+            </Link>
+          </div>
         </div>
-        <div>
-          <Link to={{ pathname: "/dialog", state: "" }}>
-            <Button style={{ backgroundColor: "#1b2f56", marginTop: "2rem" }}>
-              Start dialog
-            </Button>
-          </Link>
-        </div>
-      </div>
+      </Container>
     </div>
   );
 }

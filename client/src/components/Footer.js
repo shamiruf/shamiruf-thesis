@@ -9,26 +9,23 @@ export class Footer extends Component {
           style={{
             backgroundColor: "#1b2f56",
             color: "white",
-            height: "150px",
+            height: "auto",
             textAlign: "left",
-            marginBottom: "20px",
+            // marginBottom: "20px",
             padding: "0.5rem 1rem ",
           }}
         >
-          <div
-            style={{ textAlign: "center", fontSize: "20px" }}
-            className="ml-5"
-          >
+          <div style={{ textAlign: "center", fontSize: "20px" }}>
             <RiRoadMapLine className="mr-2" />
             Prague Tour Guide Chatbot
           </div>
           <hr style={{ backgroundColor: "white" }} />
-          <div style={{ color: "white", marginLeft: "50px", width: "300px" }}>
+          <div style={{ color: "white", marginLeft: "50px" }}>
             <p>
               Photos from <a href="https://www.pexels.com/">pexels.com</a>.{" "}
               <br />
-              Photo authors: Pierre Blaché, Viesturs Davidčuks, Andrey Merkulev,
-              Dimitry Anikin.
+              Photo authors: Pierre Blaché, Viesturs Davidčuks,
+              <p>Andrey Merkulev, Dimitry Anikin.</p>
             </p>
           </div>
         </div>
