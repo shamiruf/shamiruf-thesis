@@ -189,7 +189,7 @@ var ConversationPanel = (function () {
     }
   }
 
-  // Constructs new DOM element from a message
+  // Constructs new DOM element from a mess age
   function getDivObject(res, isUser, isTop) {
     var classes = [
       isUser ? "from-user" : "from-watson",
@@ -288,9 +288,6 @@ var ConversationPanel = (function () {
         innerhtml: title + description + img,
       });
     } else if (gen.response_type === "text") {
-      // if (gen.text === "Get response from client app") {
-      //   gen.text === "Fuck you";
-      // }
       responses.push({
         type: gen.response_type,
         innerhtml: gen.text,

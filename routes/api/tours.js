@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../middleware/auth");
 // Tour model to make queries
 const Tour = require("../../models/tour");
 
@@ -9,8 +8,6 @@ const Tour = require("../../models/tour");
 // @desc   Get All Tours
 // @access Public
 router.get("/", (req, res) => {
-  // TODO
-  // SORT BY RAITING
   Tour.find().then((tours) => res.json(tours));
 });
 
@@ -84,7 +81,7 @@ router.post("/", (req, res) => {
 // @route  DELETE api/tours
 // @desc   DELETE An Tour
 // @access Private
-router.delete("/:id", auth, (req, res) => {
+router.delete("/:id", (req, res) => {
   Tour.findById(req.params.id)
     .then((tour) => tour.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));

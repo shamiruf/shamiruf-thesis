@@ -12,8 +12,6 @@ export const getSessionId = async () => {
 };
 
 export const sendMessage = async (message) => {
-  console.log(3);
-  console.log(message);
   let context = {};
   if (latestResponse) {
     context = latestResponse.context;
@@ -30,6 +28,7 @@ export const sendMessage = async (message) => {
           user_defined: {
             tourFromDb: [],
             waypointsAllInfoOrdered: [],
+            startDialogWithRreadyTour: true,
           },
         },
       },

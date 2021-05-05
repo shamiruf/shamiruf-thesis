@@ -6,13 +6,12 @@ import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./responsive.css";
 
-import { getTours, deleteTour } from "../actions/tourActions.js";
+import { getTours } from "../actions/tourActions.js";
 class ToursList extends Component {
   //action from redux stored as a prop
   static propTypes = {
     getTours: PropTypes.func.isRequired,
     tour: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool,
   };
 
   // react lifecycle method that run when the component mounts (when making API request)
@@ -47,14 +46,14 @@ class ToursList extends Component {
                     style={{ borderRadius: "20px", marginRight: "48px" }}
                     src={src}
                     width="300px"
-                    alt="Tour photo"
+                    alt="Tour"
                   />
                   <div style={{ textAlign: "center" }}>
                     <h2 style={{ marginBottom: "1.25rem" }}>{tour.nameTour}</h2>
                     <p style={{ marginBottom: "1.25rem" }}>
                       <b>Rating: </b>
                       {Math.round(tour.totalRating * 10) / 10} <br />
-                      <b>Duration:</b> 1 hour <br />
+                      <b>Duration:</b> {tour.duration} <br />
                       <b>Waypoints:</b> {tour.waypoints.length}
                     </p>
                     <p className="p-style">{tour.tourDescription}</p>
@@ -88,8 +87,7 @@ class ToursList extends Component {
 // tour because we had it in root reducer (reducers/index.js)
 const mapStateToProps = (state) => ({
   tour: state.tour,
-  isAuthenticated: state.auth.isAuthenticated,
 });
 
 // mapsStateToProps - take tours state and map it to component property
-export default connect(mapStateToProps, { getTours, deleteTour })(ToursList);
+export default connect(mapStateToProps, { getTours })(ToursList);

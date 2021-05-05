@@ -32,14 +32,9 @@ var app = express();
 
 const tours = require("./routes/api/tours");
 const waypoints = require("./routes/api/waypoints");
-const users = require("./routes/api/users");
-const auth = require("./routes/api/auth");
 
-const places = require("./public/js/webhook_from_wa");
+const places = require("./routes/api/webhook_from_wa");
 const tour = require("./models/tour");
-
-// DB config
-// const db = require("./config/keys").mongoURI;
 
 // Connect to mongoDB
 mongoose
@@ -57,6 +52,7 @@ app.use((req, res, next) => {
   res.append("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
+
 // Bootstrap application settings
 app.use(express.static("./public")); // load UI from public folder
 // app.use(bodyParser.json());
@@ -65,8 +61,6 @@ app.use(express.json());
 // endpoints for db scheme
 app.use("/api/tours", tours);
 app.use("/api/waypoints", waypoints);
-app.use("/api/users", users);
-app.use("/api/auth", auth);
 
 // endpoint for request from Watson (webhook)
 app.use("/myplaces", places);
@@ -114,8 +108,8 @@ app.post("/api/message", async function (req, res) {
       textIn = req.body.input.text;
     }
     if (req.body.context) {
-      // The client must maintain context/state
       context = req.body.context;
+      // To get tour from db
       if (
         context.skills["main skill"]?.user_defined?.tourFromDb?.length === 0
       ) {
@@ -133,6 +127,7 @@ app.post("/api/message", async function (req, res) {
       }
     }
   }
+
   var payload = {
     assistantId: assistantId,
     sessionId: req.body.session_id,
@@ -175,23 +170,6 @@ app.get("/api/session", function (req, res) {
 
 async function saveInDb(response) {
   if (
-    response.result.context.skills["main skill"].user_defined?.webhook_result_2
-      ?.status === "OK"
-  ) {
-    const placeFromWatson =
-      response.result.context.skills["main skill"].user_defined
-        .webhook_result_2;
-    try {
-      const linkLocal = "http://localhost:5000";
-      const json = await axios.post(
-        linkLocal + "/api/waypoints",
-        placeFromWatson
-      );
-      return JSON.stringify(json.status);
-    } catch (err) {
-      console.log(err);
-    }
-  } else if (
     response.result.context.skills["main skill"].user_defined?.webhook_result_6
       ?.status === "OK"
   ) {
@@ -217,7 +195,9 @@ async function saveInDb(response) {
     }
   } else if (
     response.result.context.skills["main skill"].user_defined?.rating &&
-    response.result.context.skills["main skill"].user_defined?.rating !== ""
+    response.result.context.skills["main skill"].user_defined?.rating !== "" &&
+    response.result.context.skills["main skill"].user_defined?.tourFromDb[0] !==
+      {}
   ) {
     let tourForRating =
       response.result.context.skills["main skill"].user_defined.tourFromDb[0];
@@ -298,17 +278,6 @@ async function findWaypointsInDb(waypoints) {
     }
   }
   return waypointsAllInfoOrdered;
-}
-
-function processResponse(response) {
-  let oldResponseText = response.result.output.generic[0].text;
-  let newResponse = "";
-  if (oldResponseText === "Get place details") {
-  }
-  // console.log(oldResponseText);
-  response.result.output.generic[0].text = oldResponseText;
-  // console.log(JSON.stringify(response));
-  return response;
 }
 
 module.exports = app;

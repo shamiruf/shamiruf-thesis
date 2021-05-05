@@ -1,9 +1,4 @@
-import {
-  GET_TOURS,
-  ADD_TOUR,
-  DELETE_TOUR,
-  TOURS_LOADING,
-} from "../actions/types";
+import { GET_TOURS, TOURS_LOADING } from "../actions/types";
 
 const initialState = {
   tours: [],
@@ -17,16 +12,6 @@ export default function (state = initialState, action) {
         ...state,
         tours: action.payload,
         loading: false,
-      };
-    case DELETE_TOUR:
-      return {
-        ...state,
-        tours: state.tours.filter((tour) => tour._id !== action.payload),
-      };
-    case ADD_TOUR:
-      return {
-        ...state,
-        tours: [action.payload, ...state.tours],
       };
     case TOURS_LOADING:
       return {
