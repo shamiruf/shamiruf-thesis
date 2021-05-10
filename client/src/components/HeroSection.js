@@ -29,10 +29,16 @@ function HeroSection() {
           <div>
             <h3>Choose or create any tour and go through it with chatbot</h3>
           </div>
-          <div style={{ marginTop: "1.2rem" }}>
+          <div style={{ marginTop: "2.3rem" }}>
             <Link to={{ pathname: "/dialog", state: "" }}>
-              <Button style={{ backgroundColor: "#1b2f56", marginTop: "" }}>
-                Start dialog
+              <Button
+                color="danger"
+                size="lg"
+                style={{
+                  color: "black",
+                }}
+              >
+                <b>Start dialog</b>
               </Button>
             </Link>
           </div>
