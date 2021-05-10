@@ -33,7 +33,7 @@ var app = express();
 const tours = require("./routes/api/tours");
 const waypoints = require("./routes/api/waypoints");
 
-const places = require("./routes/api/webhook_from_wa");
+const places = require("./routes/webhook_from_wa");
 const tour = require("./models/tour");
 
 // Connect to mongoDB
@@ -91,18 +91,12 @@ app.post("/api/message", async function (req, res) {
   if (!assistantId || assistantId === "<assistant-id>") {
     return res.json({
       output: {
-        text:
-          "The app has not been configured with a <b>ASSISTANT_ID</b> environment variable. Please refer to the " +
-          '<a href="https://github.com/watson-developer-cloud/assistant-simple">README</a> documentation on how to set this variable. <br>' +
-          "Once a workspace has been defined the intents may be imported from " +
-          '<a href="https://github.com/watson-developer-cloud/assistant-simple/blob/master/training/car_workspace.json">here</a> in order to get a working application.',
+        text: "Assistant Id not found",
       },
     });
   }
-
-  var textIn = "";
+  let textIn = "";
   let context = {};
-
   if (req.body) {
     if (req.body.input) {
       textIn = req.body.input.text;
@@ -110,13 +104,12 @@ app.post("/api/message", async function (req, res) {
     if (req.body.context) {
       context = req.body.context;
       // To get tour from db
-      if (
-        context.skills["main skill"]?.user_defined?.tourFromDb?.length === 0
-      ) {
+      if (context.skills["main skill"]?.user_defined?.findTourFromDb === true) {
         try {
           const tourObj = await findTourInDb(textIn);
-          const waypoints = tourObj.waypoints;
-          const waypointsAllInfoOrdered = await findWaypointsInDb(waypoints);
+          const waypointsAllInfoOrdered = await findWaypointsInDb(
+            tourObj.waypoints
+          );
           context.skills["main skill"].user_defined.tourFromDb.push(tourObj);
           context.skills[
             "main skill"
@@ -127,7 +120,6 @@ app.post("/api/message", async function (req, res) {
       }
     }
   }
-
   var payload = {
     assistantId: assistantId,
     sessionId: req.body.session_id,
@@ -140,15 +132,13 @@ app.post("/api/message", async function (req, res) {
     },
     context: context,
   };
-
   // Send the input to the assistant service
   assistant.message(payload, function (err, data) {
     if (err) {
       const status = err.code !== undefined && err.code > 0 ? err.code : 500;
       return res.status(status).json(err);
     }
-    saveInDb(data);
-    // const responseAfterProcess = processResponse(data);
+    saveRatingInDb(data);
     if (data.result) return res.json(data);
   });
 });
@@ -168,36 +158,12 @@ app.get("/api/session", function (req, res) {
   );
 });
 
-async function saveInDb(response) {
+async function saveRatingInDb(response) {
   if (
-    response.result.context.skills["main skill"].user_defined?.webhook_result_6
-      ?.status === "OK"
-  ) {
-    const tourFromWatson =
-      response.result.context.skills["main skill"].user_defined
-        .webhook_result_6;
-    const waypoints = response.result.context.skills[
-      "main skill"
-    ].user_defined.webhook_result_5.waypointsAllInfoOrdered.map(
-      (placeObj) => placeObj.name
-    );
-    const tourToSave = {
-      nameTour: tourFromWatson.nameTour,
-      mapsLink: tourFromWatson.googleMapsLinkDir,
-      waypoints,
-    };
-    try {
-      const linkLocal = "http://localhost:5000";
-      const json = await axios.post(linkLocal + "/api/tours", tourToSave);
-      return JSON.stringify(json.status);
-    } catch (err) {
-      console.log(err);
-    }
-  } else if (
     response.result.context.skills["main skill"].user_defined?.rating &&
     response.result.context.skills["main skill"].user_defined?.rating !== "" &&
-    response.result.context.skills["main skill"].user_defined?.tourFromDb[0] !==
-      {}
+    response.result.context.skills["main skill"].user_defined?.getRating ===
+      true
   ) {
     let tourForRating =
       response.result.context.skills["main skill"].user_defined.tourFromDb[0];
@@ -267,17 +233,19 @@ async function findTourInDb(nameTour) {
 
 async function findWaypointsInDb(waypoints) {
   let waypointsAllInfoOrdered = [];
-  for (let i = 0; i < waypoints.length; i++) {
-    let placeName = waypoints[i];
-    try {
-      const linkLocal = "http://localhost:5000";
-      const json = await axios.get(linkLocal + `/api/waypoints/${placeName}`);
-      waypointsAllInfoOrdered.push(json.data);
-    } catch (err) {
-      console.log(err);
+  if (waypoints) {
+    for (let i = 0; i < waypoints.length; i++) {
+      let placeName = waypoints[i];
+      try {
+        const linkLocal = "http://localhost:5000";
+        const json = await axios.get(linkLocal + `/api/waypoints/${placeName}`);
+        waypointsAllInfoOrdered.push(json.data);
+      } catch (err) {
+        console.log(err);
+      }
     }
+    return waypointsAllInfoOrdered;
   }
-  return waypointsAllInfoOrdered;
 }
 
 module.exports = app;

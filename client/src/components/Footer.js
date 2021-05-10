@@ -11,7 +11,6 @@ export class Footer extends Component {
             color: "white",
             height: "auto",
             textAlign: "left",
-            // marginBottom: "20px",
             padding: "0.5rem 1rem ",
           }}
         >

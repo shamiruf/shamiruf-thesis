@@ -1,8 +1,7 @@
-import { GET_TOURS, TOURS_LOADING } from "../actions/types";
+import { GET_TOURS } from "../actions/types";
 
 const initialState = {
   tours: [],
-  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -11,12 +10,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tours: action.payload,
-        loading: false,
-      };
-    case TOURS_LOADING:
-      return {
-        ...state,
-        loading: true,
       };
     default:
       return state;

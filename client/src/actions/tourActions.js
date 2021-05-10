@@ -1,9 +1,7 @@
 import axios from "axios";
-import { GET_TOURS, TOURS_LOADING } from "./types";
-import { returnErrors } from "./errorActions";
-// go to itemReducer and checking action.type in export def func
+import { GET_TOURS } from "./types";
+
 export const getTours = () => (dispatch) => {
-  dispatch(setToursLoading());
   axios
     .get("/api/tours")
     .then((res) =>
@@ -13,12 +11,6 @@ export const getTours = () => (dispatch) => {
       })
     )
     .catch((err) => {
-      dispatch(returnErrors(err.response.data, err.response.status));
+      console.log(err);
     });
-};
-
-export const setToursLoading = () => {
-  return {
-    type: TOURS_LOADING,
-  };
 };

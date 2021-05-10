@@ -6,7 +6,6 @@ import MainPage from "./pages";
 import DialogPage from "./pages/dialog";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 
 class App extends Component {
   render() {
