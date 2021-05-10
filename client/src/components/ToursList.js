@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./responsive.css";
-
 import { getTours } from "../actions/tourActions.js";
+
 class ToursList extends Component {
   //action from redux stored as a prop
   static propTypes = {
@@ -14,9 +14,23 @@ class ToursList extends Component {
     tour: PropTypes.object.isRequired,
   };
 
-  // react lifecycle method that run when the component mounts (when making API request)
   componentDidMount() {
     this.props.getTours();
+  }
+
+  renderImage(nameTour) {
+    switch (nameTour) {
+      case "Little Quarter tour":
+        return "/images/little_quarter.jpg";
+      case "Holesovice tour":
+        return "/images/holesovice.jpg";
+      case "Old Town tour":
+        return "/images/old_town2.jpg";
+      case "From Vinohrady to Zizkov tour":
+        return "/images/zizkov.jpg";
+      default:
+        return "";
+    }
   }
 
   render() {
@@ -28,16 +42,7 @@ class ToursList extends Component {
             Ready tours
           </h1>
           {tours.map((tour, index) => {
-            let src = "";
-            if (tour.nameTour === "Little Quarter tour") {
-              src = "/images/little_quarter.jpg";
-            } else if (tour.nameTour === "Holesovice tour") {
-              src = "/images/holesovice.jpg";
-            } else if (tour.nameTour === "Old Town tour") {
-              src = "/images/old_town2.jpg";
-            } else if (tour.nameTour === "From Vinohrady to Zizkov tour") {
-              src = "/images/zizkov.jpg";
-            }
+            let src = this.renderImage(tour.nameTour);
             return (
               <div key={index} className="mb-4 sm">
                 <hr />
@@ -48,9 +53,13 @@ class ToursList extends Component {
                     width="300px"
                     alt="Tour"
                   />
-                  <div style={{ textAlign: "center" }}>
-                    <h2 style={{ marginBottom: "1.25rem" }}>{tour.nameTour}</h2>
-                    <p style={{ marginBottom: "1.25rem" }}>
+                  <div>
+                    <h2
+                      style={{ marginBottom: "1.25rem", textAlign: "center" }}
+                    >
+                      {tour.nameTour}
+                    </h2>
+                    <p style={{ marginBottom: "1.25rem", textAlign: "center" }}>
                       <b>Rating: </b>
                       {Math.round(tour.totalRating * 10) / 10} <br />
                       <b>Duration:</b> {tour.duration} <br />
@@ -60,7 +69,7 @@ class ToursList extends Component {
                     <p className="p-style">
                       <b>What you will see:</b> {tour.waypoints.join(" - ")}
                     </p>
-                    <div>
+                    <div style={{ textAlign: "center" }}>
                       <Link
                         to={{
                           pathname: "/dialog",
