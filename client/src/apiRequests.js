@@ -11,6 +11,17 @@ export const getSessionId = async () => {
   return sessionId;
 };
 
+export const deleteSessionId = async () => {
+  sessionId = "";
+  // await axios
+  //   .get(baseEndpoint + "api/deleteSession", sessionId)
+  //   .then((res) => {
+  //     console.log(`Session id is deleted`);
+  //     console.log(res);
+  //   })
+  //   .catch((err) => console.log(err));
+};
+
 export const sendMessage = async (message) => {
   let context = {};
   if (latestResponse) {
@@ -28,6 +39,7 @@ export const sendMessage = async (message) => {
           user_defined: {
             tourFromDb: [],
             waypointsAllInfoOrdered: [],
+            findTourFromDb: true,
             startDialogWithRreadyTour: true,
           },
         },
