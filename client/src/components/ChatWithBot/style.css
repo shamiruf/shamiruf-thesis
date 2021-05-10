@@ -23,19 +23,22 @@ input:-moz-placeholder {
 }
 
 .chat-container {
-  border-style: groove;
+  /* border-style: groove; */
+  /* border-top-style: groove; */
+  border-right-style: groove;
+  /* border-bottom-style: groove; */
+  border-left-style: groove;
   border-color: #ffffff;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  height: 100% !important;
-  padding: 0.9375rem 0 0.625rem 0;
   margin: auto;
   text-align: left;
   max-width: 25rem;
   min-width: 9.375rem;
 }
 
-.inputOutline {
+.input-outline {
   display: block;
   border-bottom: 0.0625rem solid #aeaeae;
   margin-left: 0.5rem;
@@ -52,14 +55,15 @@ input:-moz-placeholder {
     sans-serif;
 }
 
-.scrollingChat {
+.scrolling-chat {
   margin: 0.75rem;
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
+  height: 79vh;
 }
 
-.textInput {
+.text-input {
   border: none;
   outline: none;
   background: transparent;
@@ -115,10 +119,12 @@ input:-moz-placeholder {
 .from-user-text {
   position: relative;
   font-size: 1rem;
-  color: #fff;
+  color: rgb(0, 0, 0);
   letter-spacing: 0.015rem;
   line-height: 1.3125rem;
-  background: #1b2f56;
+  background-color: #ddddddd0;
+  border: #1b2f56;
+  border-style: solid;
   border-radius: 1.25rem;
   border-bottom-right-radius: 0;
   text-align: left;
