@@ -20,7 +20,6 @@
 var express = require("express"); // app server
 const mongoose = require("mongoose"); // database
 // var bodyParser = require("body-parser"); // parser for post requests
-const axios = require("axios");
 
 var AssistantV2 = require("ibm-watson/assistant/v2"); // watson sdk
 const {
@@ -32,9 +31,8 @@ var app = express();
 
 const tours = require("./routes/api/tours");
 const waypoints = require("./routes/api/waypoints");
-
 const places = require("./routes/webhook_from_wa");
-const tour = require("./models/tour");
+const db = require("./workWithDB");
 
 // Connect to mongoDB
 mongoose
@@ -55,7 +53,6 @@ app.use((req, res, next) => {
 
 // Bootstrap application settings
 app.use(express.static("./public")); // load UI from public folder
-// app.use(bodyParser.json());
 app.use(express.json());
 
 // endpoints for db scheme
@@ -104,16 +101,21 @@ app.post("/api/message", async function (req, res) {
     if (req.body.context) {
       context = req.body.context;
       // To get tour from db
-      if (context.skills["main skill"]?.user_defined?.findTourFromDb === true) {
+      if (
+        context?.skills["main skill"]?.user_defined?.findTourFromDb === true
+      ) {
         try {
-          const tourObj = await findTourInDb(textIn);
-          const waypointsAllInfoOrdered = await findWaypointsInDb(
-            tourObj.waypoints
-          );
+          const tourObj = await db.findTourInDb(textIn).catch((err) => {
+            console.log(err);
+          });
+          const waypointsAllInfoOrdered = await db
+            .findWaypointsInDb(tourObj.waypoints)
+            .catch((err) => {
+              console.log(err);
+            });
           context.skills["main skill"].user_defined.tourFromDb.push(tourObj);
-          context.skills[
-            "main skill"
-          ].user_defined.waypointsAllInfoOrdered = waypointsAllInfoOrdered;
+          context.skills["main skill"].user_defined.waypointsAllInfoOrdered =
+            waypointsAllInfoOrdered;
         } catch (err) {
           console.log(err);
         }
@@ -132,13 +134,14 @@ app.post("/api/message", async function (req, res) {
     },
     context: context,
   };
+
   // Send the input to the assistant service
   assistant.message(payload, function (err, data) {
     if (err) {
       const status = err.code !== undefined && err.code > 0 ? err.code : 500;
       return res.status(status).json(err);
     }
-    saveRatingInDb(data);
+    db.saveRatingInDb(data);
     if (data.result) return res.json(data);
   });
 });
@@ -157,95 +160,5 @@ app.get("/api/session", function (req, res) {
     }
   );
 });
-
-async function saveRatingInDb(response) {
-  if (
-    response.result.context.skills["main skill"].user_defined?.rating &&
-    response.result.context.skills["main skill"].user_defined?.rating !== "" &&
-    response.result.context.skills["main skill"].user_defined?.getRating ===
-      true
-  ) {
-    let tourForRating =
-      response.result.context.skills["main skill"].user_defined.tourFromDb[0];
-    const ratingFromUser =
-      response.result.context.skills["main skill"].user_defined.rating;
-    const tourFromDbForRating = await findTourInDb(tourForRating.nameTour);
-    switch (ratingFromUser) {
-      case "I really liked it!":
-        tourFromDbForRating.ratingAmount.five += 1;
-        break;
-      case "Good!":
-        tourFromDbForRating.ratingAmount.four += 1;
-        break;
-      case "Just fine":
-        tourFromDbForRating.ratingAmount.three += 1;
-        break;
-      case "Not very good.":
-        tourFromDbForRating.ratingAmount.two += 1;
-        break;
-      case "Bad.":
-        tourFromDbForRating.ratingAmount.one += 1;
-        break;
-    }
-    const newRatingAmount = tourFromDbForRating.ratingAmount;
-    const totalAmount =
-      tourFromDbForRating.ratingAmount.five +
-      tourFromDbForRating.ratingAmount.four +
-      tourFromDbForRating.ratingAmount.three +
-      tourFromDbForRating.ratingAmount.two +
-      tourFromDbForRating.ratingAmount.one;
-
-    const totalRating =
-      (5 * tourFromDbForRating.ratingAmount.five +
-        4 * tourFromDbForRating.ratingAmount.four +
-        3 * tourFromDbForRating.ratingAmount.three +
-        2 * tourFromDbForRating.ratingAmount.two +
-        1 * tourFromDbForRating.ratingAmount.one) /
-      totalAmount;
-
-    const objToSend = {
-      nameTour: tourFromDbForRating.nameTour,
-      totalRating: totalRating,
-      newRatingAmount: newRatingAmount,
-    };
-    try {
-      const linkLocal = "http://localhost:5000";
-      const json = await axios.post(
-        linkLocal + "/api/tours/updateRating",
-        objToSend
-      );
-      return JSON.stringify(json.status);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
-
-async function findTourInDb(nameTour) {
-  try {
-    const linkLocal = "http://localhost:5000";
-    const json = await axios.get(linkLocal + `/api/tours/${nameTour}`);
-    return json.data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function findWaypointsInDb(waypoints) {
-  let waypointsAllInfoOrdered = [];
-  if (waypoints) {
-    for (let i = 0; i < waypoints.length; i++) {
-      let placeName = waypoints[i];
-      try {
-        const linkLocal = "http://localhost:5000";
-        const json = await axios.get(linkLocal + `/api/waypoints/${placeName}`);
-        waypointsAllInfoOrdered.push(json.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    return waypointsAllInfoOrdered;
-  }
-}
 
 module.exports = app;
