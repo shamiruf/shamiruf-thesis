@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import parse from "html-react-parser";
+import { Spinner } from "reactstrap";
 
 import { Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
@@ -18,7 +19,9 @@ class ChatContainer extends Component {
   }
 
   getMessageFromWatson = async (message) => {
-    const watsonMessage = await sendMessage(message);
+    const watsonMessage = await sendMessage(message).catch((err) => {
+      console.log(err);
+    });
     this.setState({
       conversation: [...this.state.conversation, watsonMessage],
     });
@@ -64,6 +67,7 @@ class ChatContainer extends Component {
   };
 
   render() {
+    console.log(this.state.conversation);
     return (
       <div>
         <AppNavbar />
@@ -75,86 +79,89 @@ class ChatContainer extends Component {
           </div>
           <div>
             <div className="scrolling-chat">
-              {this.state.conversation.map((item, index) => {
-                return (
-                  <div key={index}>
-                    {item.isUser ? (
-                      <div key={index} className="from-user">
-                        <div className="from-user-text">
-                          <div className="from-user-p">{item.message}</div>
+              {this.state.conversation.length === 0 ? (
+                <Spinner color="dark" />
+              ) : (
+                (this.state.conversation || []).map((item, index) => {
+                  return (
+                    <div key={index}>
+                      {item.isUser ? (
+                        <div key={index} className="from-user">
+                          <div className="from-user-text">
+                            <div className="from-user-p">{item.message}</div>
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="from-watson">
-                        <SiProbot color="#9855d4" size="35px" />
-                        <div className="from-watson-p ">
-                          {item.message.map((botMsg, index) => {
-                            if (botMsg.type === "image") {
-                              let src = botMsg.image.source;
-                              return (
-                                <div key={index}>
-                                  <img
-                                    src={src}
-                                    width="300px"
-                                    alt="Waypoint"
-                                  ></img>
-                                </div>
-                              );
-                            } else if (botMsg.type === "option") {
-                              const {
-                                description,
-                                list,
-                                title,
-                              } = botMsg.option;
-                              return (
-                                <div key={index}>
-                                  <div>
-                                    <div className="mb-2">{title}</div>
-                                    <div>{description}</div>
-                                    <ul>
-                                      {list.map((option, index) => {
-                                        return (
-                                          <div key={index}>
-                                            <li>
-                                              <div
-                                                onClick={() => {
-                                                  this.sendMessageFunc(
-                                                    option.valueToSendFromUser
-                                                  );
-                                                }}
-                                                className="options-list"
-                                              >
-                                                <div
-                                                  style={{
-                                                    marginBottom: "7px",
-                                                  }}
-                                                >
-                                                  {option.label}
-                                                </div>
-                                              </div>
-                                            </li>
-                                          </div>
-                                        );
-                                      })}
-                                    </ul>
+                      ) : (
+                        <div className="from-watson">
+                          <SiProbot color="#9855d4" size="35px" />
+                          <div className="from-watson-p ">
+                            {(item.message || []).map((botMsg, index) => {
+                              if (botMsg.type === "image") {
+                                let src = botMsg.image.source;
+                                return (
+                                  <div key={index}>
+                                    <img
+                                      src={src}
+                                      width="300px"
+                                      alt="Waypoint"
+                                    ></img>
                                   </div>
-                                </div>
-                              );
-                            } else if (botMsg.type === "text") {
-                              return (
-                                <div key={index}>{parse(botMsg.innerhtml)}</div>
-                              );
-                            } else {
-                              return <div>Sorry</div>;
-                            }
-                          })}
+                                );
+                              } else if (botMsg.type === "option") {
+                                const { description, list, title } =
+                                  botMsg.option;
+                                return (
+                                  <div key={index}>
+                                    <div>
+                                      <div className="mb-2">{title}</div>
+                                      <div>{description}</div>
+                                      <ul>
+                                        {list.map((option, index) => {
+                                          return (
+                                            <div key={index}>
+                                              <li>
+                                                <div
+                                                  onClick={() => {
+                                                    this.sendMessageFunc(
+                                                      option.valueToSendFromUser
+                                                    );
+                                                  }}
+                                                  className="options-list"
+                                                >
+                                                  <div
+                                                    style={{
+                                                      marginBottom: "7px",
+                                                    }}
+                                                  >
+                                                    {option.label}
+                                                  </div>
+                                                </div>
+                                              </li>
+                                            </div>
+                                          );
+                                        })}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                );
+                              } else if (botMsg.type === "text") {
+                                return (
+                                  <div key={index}>
+                                    {parse(botMsg.innerhtml)}
+                                  </div>
+                                );
+                              } else {
+                                return <div>Sorry</div>;
+                              }
+                            })}
+                          </div>
                         </div>
-                      </div>
-                      // <BotMsg message={item.message} />
-                    )}
-                  </div>
-                );
-              })}
+                        // <BotMsg message={item.message} />
+                      )}
+                    </div>
+                  );
+                })
+              )}
               <div
                 ref={(el) => {
                   this.messagesEnd = el;
