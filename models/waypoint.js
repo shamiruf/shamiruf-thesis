@@ -26,4 +26,5 @@ const WaypointSchema = new Schema({
 });
 
 // Access to this file
-module.exports = Waypoint = mongoose.model("waypoint", WaypointSchema);
+const Waypoint = mongoose.model("waypoint", WaypointSchema);
+module.exports = Waypoint;

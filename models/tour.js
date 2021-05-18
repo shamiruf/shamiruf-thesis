@@ -1,3 +1,5 @@
+// Waypoint model to make queries
+const Waypoint = require("./waypoint");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -8,7 +10,7 @@ const TourSchema = new Schema({
     required: false,
   },
   waypoints: {
-    type: [String],
+    type: [Waypoint.name],
     default: undefined,
     required: true,
     unique: true,
@@ -39,4 +41,5 @@ const TourSchema = new Schema({
 });
 
 // Access to this file
-module.exports = Tour = mongoose.model("tour", TourSchema);
+const Tour = mongoose.model("tour", TourSchema);
+module.exports = Tour;
