@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
       if (json.status === "OK") {
         let uri_place_details = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(
           placeId
-        )}&fields=name,formatted_address,photo,url&key=${key}`;
+        )}&fields=name,formatted_address,photo,url,website&key=${key}`;
         const json_details = await axiosUseGet(uri_place_details);
         if (json_details.result?.photos) {
           const photoReference1 = json_details.result.photos[0].photo_reference;
@@ -35,6 +35,7 @@ router.post("/", async (req, res) => {
             url: json_details.result.url,
             name: json_details.result.name,
             formatted_address: json_details.result.formatted_address,
+            website: json_details.result.website,
             photo1: uriGetPhotos1,
             photo2: uriGetPhotos2,
           });
@@ -44,13 +45,14 @@ router.post("/", async (req, res) => {
             url: json_details.result.url,
             name: json_details.result.name,
             formatted_address: json_details.result.formatted_address,
+            website: json_details.result.website,
           });
         }
       }
     } catch (err) {
       console.error("error", err);
     }
-  } else if (req.body.getWaypointsOrder === true) {
+  } else if (req.body.getOrderedWaypointsAndMapsLink === true) {
     let waypoints = req.body.waypoints;
     const travelMode = req.body.travelMode;
     let waypointsAllInfo = req.body.waypointsAllInfo;
@@ -88,55 +90,47 @@ router.post("/", async (req, res) => {
         }
       }
       waypointsAllInfoOrdered.push(waypointsAllInfo[1]);
+
+      let orderedWaypointsPart = [];
+      let stringToAdd = "";
+
+      // do right order of array el
+      for (let i = 1; i < waypointsAllInfoOrdered.length - 1; i++) {
+        orderedWaypointsPart.push(waypointsAllInfoOrdered[i].name);
+      }
+      if (orderedWaypointsPart.length >= 1) {
+        stringToAdd = orderedWaypointsPart.join(",Prague|") + ",Prague|";
+      }
+
+      const googleMapsLinkDir = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+        origin
+      )},Prague&destination=${encodeURIComponent(
+        destination
+      )},Prague&travelmode=${encodeURIComponent(
+        travelMode
+      )}&waypoints=${encodeURIComponent(stringToAdd)}`;
+
       res.json({
         status: json.status,
         waypointsAllInfoOrdered,
+        googleMapsLinkDir,
       });
     } catch (err) {
       console.log(err);
     }
-  } else if (req.body.getGoogleMapsLink === true) {
-    const waypointsAllInfoOrdered = req.body.waypointsAllInfoOrdered;
-    const travelMode = req.body.travelMode;
-
-    const origin = waypointsAllInfoOrdered[0].name;
-    const destination =
-      waypointsAllInfoOrdered[waypointsAllInfoOrdered.length - 1].name;
-
-    const nameTour = `${origin} - ${destination}`;
-
-    let orderedWaypointsPart = [];
-    let stringToAdd = "";
-
-    // do right order of array el
-    for (let i = 1; i < waypointsAllInfoOrdered.length - 1; i++) {
-      orderedWaypointsPart.push(waypointsAllInfoOrdered[i].name);
-    }
-    if (orderedWaypointsPart.length >= 1) {
-      stringToAdd = orderedWaypointsPart.join(",Prague|") + ",Prague|";
-    }
-
-    const googleMapsLinkDir = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
-      origin
-    )},Prague&destination=${encodeURIComponent(
-      destination
-    )},Prague&travelmode=${encodeURIComponent(
-      travelMode
-    )}&waypoints=${encodeURIComponent(stringToAdd)}`;
-
-    // send googleMapsLinkDir and ordered waypoints
-    res.json({
-      status: "OK",
-      nameTour,
-      googleMapsLinkDir,
-    });
   } else if (req.body.getWikiInfo === true) {
     const placeNameForWiki = req.body.placeNameForWiki;
     const readyNameForWiki = placeNameForWiki.replace(" ", "-");
-
-    const urlWikiSearch = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrnamespace=0&gsrsearch=${encodeURIComponent(
-      readyNameForWiki
-    )}-prague&gsrlimit=1&prop=extracts|info&inprop=url&exsentences=4&explaintext=true&utf8=&format=json`;
+    let urlWikiSearch = "";
+    if (placeNameForWiki.includes("Prague", 0)) {
+      urlWikiSearch = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrnamespace=0&gsrsearch=${encodeURIComponent(
+        readyNameForWiki
+      )}&gsrlimit=1&prop=extracts|info&inprop=url&exsentences=4&explaintext=true&utf8=&format=json`;
+    } else {
+      urlWikiSearch = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrnamespace=0&gsrsearch=${encodeURIComponent(
+        readyNameForWiki
+      )}-prague&gsrlimit=1&prop=extracts|info&inprop=url&exsentences=4&explaintext=true&utf8=&format=json`;
+    }
 
     try {
       const json = await axiosUseGet(urlWikiSearch);
@@ -167,7 +161,7 @@ router.post("/", async (req, res) => {
         locationLat
       )},${encodeURIComponent(
         locationLng
-      )}&radius=1500&keyword=${encodeURIComponent(
+      )}&radius=1000&keyword=${encodeURIComponent(
         categoryOfInterest
       )}&key=${key}`;
       const json_nearby = await axiosUseGet(uri_nearby);
