@@ -5,24 +5,25 @@ export let sessionId = "";
 let latestResponse = {};
 
 export const getSessionId = async () => {
-  await axios.get(baseEndpoint + "api/session").then((res) => {
-    sessionId = res.data.result.session_id;
-  });
+  await axios
+    .get(baseEndpoint + "api/session")
+    .then((res) => {
+      sessionId = res.data.result.session_id;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   return sessionId;
 };
 
 export const deleteSessionId = async () => {
   sessionId = "";
-  // await axios
-  //   .get(baseEndpoint + "api/deleteSession", sessionId)
-  //   .then((res) => {
-  //     console.log(`Session id is deleted`);
-  //     console.log(res);
-  //   })
-  //   .catch((err) => console.log(err));
+  latestResponse = {};
 };
 
 export const sendMessage = async (message) => {
+  console.log(1);
+  console.log(message);
   let context = {};
   if (latestResponse) {
     context = latestResponse.context;
@@ -57,25 +58,36 @@ export const sendMessage = async (message) => {
       context: {},
     },
     context: {
-      skills: {},
+      skills: {
+        // "main skill": {},
+      },
     },
   };
   if (context) {
     body.context = context;
   }
+  console.log(1.5);
+  console.log(body);
   let watsonAnswear = "";
   let responses = [];
-  await axios.post(baseEndpoint + "api/message", body).then((res) => {
-    latestResponse = res.data.result;
-    const generic = res.data.result.output.generic;
-    generic.forEach((gen) => {
-      getResponse(responses, gen);
+  await axios
+    .post(baseEndpoint + "api/message", body)
+    .then((res) => {
+      console.log(2);
+      console.log(res);
+      latestResponse = res.data.result;
+      const generic = res.data.result.output.generic;
+      generic.forEach((gen) => {
+        getResponse(responses, gen);
+      });
+      watsonAnswear = {
+        isUser: false,
+        message: [...responses],
+      };
+    })
+    .catch((err) => {
+      console.log(err);
     });
-    watsonAnswear = {
-      isUser: false,
-      message: [...responses],
-    };
-  });
   return watsonAnswear;
 };
 
