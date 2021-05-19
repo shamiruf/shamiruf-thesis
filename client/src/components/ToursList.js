@@ -18,21 +18,6 @@ class ToursList extends Component {
     this.props.getTours();
   }
 
-  renderImage(nameTour) {
-    switch (nameTour) {
-      case "Little Quarter tour":
-        return "/images/little_quarter.jpg";
-      case "Holesovice tour":
-        return "/images/holesovice.jpg";
-      case "Old Town tour":
-        return "/images/old_town2.jpg";
-      case "From Vinohrady to Zizkov tour":
-        return "/images/zizkov.jpg";
-      default:
-        return "";
-    }
-  }
-
   render() {
     const { tours } = this.props.tour;
     return (
@@ -42,14 +27,14 @@ class ToursList extends Component {
             Ready tours
           </h1>
           {tours.map((tour, index) => {
-            let src = this.renderImage(tour.nameTour);
             return (
               <div key={index} className="mb-4 sm">
                 <hr />
                 <div key={index} style={{ display: "flex" }}>
                   <img
                     style={{ borderRadius: "20px", marginRight: "48px" }}
-                    src={src}
+                    className="imgClass"
+                    src={tour.url}
                     width="300px"
                     alt="Tour"
                   />
