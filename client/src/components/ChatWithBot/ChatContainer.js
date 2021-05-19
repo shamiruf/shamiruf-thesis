@@ -67,7 +67,6 @@ class ChatContainer extends Component {
   };
 
   render() {
-    console.log(this.state.conversation);
     return (
       <div>
         <AppNavbar />
@@ -80,7 +79,9 @@ class ChatContainer extends Component {
           <div>
             <div className="scrolling-chat">
               {this.state.conversation.length === 0 ? (
-                <Spinner color="dark" />
+                <div style={{ textAlign: "center" }}>
+                  <Spinner color="dark" />
+                </div>
               ) : (
                 (this.state.conversation || []).map((item, index) => {
                   return (

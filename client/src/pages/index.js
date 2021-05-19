@@ -8,6 +8,7 @@ import AppNavbar from "../components/AppNavbar";
 import HeroSection from "../components/HeroSection";
 import Cards from "../components/Cards";
 import Footer from "../components/Footer";
+import "../components/responsive.css";
 
 export class MainPage extends Component {
   render() {

@@ -32,7 +32,7 @@ var app = express();
 const tours = require("./routes/api/tours");
 const waypoints = require("./routes/api/waypoints");
 const places = require("./routes/webhook_from_wa");
-const db = require("./workWithDB");
+const workWithDb = require("./workWithDB");
 
 // Connect to mongoDB
 mongoose
@@ -105,10 +105,10 @@ app.post("/api/message", async function (req, res) {
         context?.skills["main skill"]?.user_defined?.findTourFromDb === true
       ) {
         try {
-          const tourObj = await db.findTourInDb(textIn).catch((err) => {
+          const tourObj = await workWithDb.findTourInDb(textIn).catch((err) => {
             console.log(err);
           });
-          const waypointsAllInfoOrdered = await db
+          const waypointsAllInfoOrdered = await workWithDb
             .findWaypointsInDb(tourObj.waypoints)
             .catch((err) => {
               console.log(err);
@@ -141,7 +141,7 @@ app.post("/api/message", async function (req, res) {
       const status = err.code !== undefined && err.code > 0 ? err.code : 500;
       return res.status(status).json(err);
     }
-    db.saveRatingInDb(data);
+    workWithDb.saveRatingInDb(data);
     if (data.result) return res.json(data);
   });
 });
