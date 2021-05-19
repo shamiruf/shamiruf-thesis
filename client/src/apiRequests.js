@@ -22,8 +22,6 @@ export const deleteSessionId = async () => {
 };
 
 export const sendMessage = async (message) => {
-  console.log(1);
-  console.log(message);
   let context = {};
   if (latestResponse) {
     context = latestResponse.context;
@@ -66,15 +64,11 @@ export const sendMessage = async (message) => {
   if (context) {
     body.context = context;
   }
-  console.log(1.5);
-  console.log(body);
   let watsonAnswear = "";
   let responses = [];
   await axios
     .post(baseEndpoint + "api/message", body)
     .then((res) => {
-      console.log(2);
-      console.log(res);
       latestResponse = res.data.result;
       const generic = res.data.result.output.generic;
       generic.forEach((gen) => {
