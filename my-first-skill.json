@@ -1,0 +1,2890 @@
+{
+  "intents": [
+    {
+      "intent": "change_tour",
+      "examples": [
+        {
+          "text": "another path"
+        },
+        {
+          "text": "anouther tour"
+        },
+        {
+          "text": "Can i change the tour?"
+        },
+        {
+          "text": "Choose or create tour"
+        },
+        {
+          "text": "choose tour"
+        },
+        {
+          "text": "I want anouther tour"
+        },
+        {
+          "text": "I want change tour"
+        },
+        {
+          "text": "I want to go the other way."
+        },
+        {
+          "text": "I want to take a different path."
+        }
+      ],
+      "description": "Change the tour"
+    },
+    {
+      "intent": "collect_user_location",
+      "examples": [
+        {
+          "text": "Address Blahnikova 1",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                8,
+                20
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Blahnikova 1",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                0,
+                12
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Hlavni nadrazi",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                0,
+                14
+              ]
+            }
+          ]
+        },
+        {
+          "text": "I settled on the address Blahnikova 1",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                25,
+                37
+              ]
+            }
+          ]
+        },
+        {
+          "text": "I stopped at Blahnikova 1",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                13,
+                25
+              ]
+            }
+          ]
+        },
+        {
+          "text": "My address is Blahnikova 1",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                14,
+                24
+              ]
+            },
+            {
+              "entity": "location",
+              "location": [
+                25,
+                26
+              ]
+            }
+          ]
+        },
+        {
+          "text": "My location is Stepanska 5",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                15,
+                26
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Stepanka 37",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                0,
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Vaclavske namesti 1",
+          "mentions": [
+            {
+              "entity": "location",
+              "location": [
+                0,
+                19
+              ]
+            }
+          ]
+        }
+      ],
+      "description": "User provides its location."
+    },
+    {
+      "intent": "create_own_path",
+      "examples": [
+        {
+          "text": "Can I create my own path"
+        },
+        {
+          "text": "Create my own path"
+        },
+        {
+          "text": "Create my own tour"
+        },
+        {
+          "text": "Create own path"
+        },
+        {
+          "text": "I want to create my own path"
+        },
+        {
+          "text": "Personal path"
+        }
+      ],
+      "description": "Create own path"
+    },
+    {
+      "intent": "drink_something",
+      "examples": [
+        {
+          "text": "Can you suggest some bar"
+        },
+        {
+          "text": "I want to drink alcohol"
+        },
+        {
+          "text": "I want to go to the bar"
+        },
+        {
+          "text": "What bars do you recommend"
+        },
+        {
+          "text": "Where can I swell?"
+        }
+      ],
+      "description": "Drink somewhere"
+    },
+    {
+      "intent": "eat_something",
+      "examples": [
+        {
+          "text": "Can you recommend a restaurant"
+        },
+        {
+          "text": "I'm hungry"
+        },
+        {
+          "text": "I need some food"
+        },
+        {
+          "text": "I want eat"
+        },
+        {
+          "text": "What restaurants can I go to"
+        },
+        {
+          "text": "Where I can eat"
+        }
+      ],
+      "description": "User wants something to eat"
+    },
+    {
+      "intent": "end_with_choosing_points",
+      "examples": [
+        {
+          "text": "end choosing points"
+        },
+        {
+          "text": "end selection points"
+        },
+        {
+          "text": "finish selection"
+        },
+        {
+          "text": "i want stop choosing points"
+        },
+        {
+          "text": "stop with selection"
+        }
+      ],
+      "description": "User wants to stop choose the points"
+    },
+    {
+      "intent": "exit",
+      "examples": [
+        {
+          "text": "Cancel this process"
+        },
+        {
+          "text": "Exit!"
+        },
+        {
+          "text": "I changed my mind. I don't want to create a path"
+        },
+        {
+          "text": "I changed my mind. I don't want to create a road"
+        },
+        {
+          "text": "I want to stop"
+        },
+        {
+          "text": "Nevermind."
+        },
+        {
+          "text": "Stop creating a route"
+        },
+        {
+          "text": "Wait, cancel this."
+        }
+      ],
+      "description": "User wants to exit the process"
+    },
+    {
+      "intent": "General_Ending",
+      "examples": [
+        {
+          "text": "All right then"
+        },
+        {
+          "text": "bb"
+        },
+        {
+          "text": "Bye"
+        },
+        {
+          "text": "Bye bye"
+        },
+        {
+          "text": "Bye-bye"
+        },
+        {
+          "text": "Bye now"
+        },
+        {
+          "text": "Catch you later"
+        },
+        {
+          "text": "Cheers"
+        },
+        {
+          "text": "Ciao"
+        },
+        {
+          "text": "Cya later"
+        },
+        {
+          "text": "Ending this session"
+        },
+        {
+          "text": "End trial"
+        },
+        {
+          "text": "Farewell"
+        },
+        {
+          "text": "Finished now, good bye"
+        },
+        {
+          "text": "Get lost"
+        },
+        {
+          "text": "Go away"
+        },
+        {
+          "text": "Going now"
+        },
+        {
+          "text": "Good. bye."
+        },
+        {
+          "text": "Goodbye"
+        },
+        {
+          "text": "Go off"
+        },
+        {
+          "text": "Have a good day"
+        },
+        {
+          "text": "Have a nice day?"
+        },
+        {
+          "text": "Hey bot go away"
+        },
+        {
+          "text": "I am leaving"
+        },
+        {
+          "text": "I am out of here"
+        },
+        {
+          "text": "I d like to stop doing this"
+        },
+        {
+          "text": "I gotta roll"
+        },
+        {
+          "text": "I have got to go"
+        },
+        {
+          "text": "I'm done"
+        },
+        {
+          "text": "Im done"
+        },
+        {
+          "text": "Im good thank you"
+        },
+        {
+          "text": "I'm leaving now"
+        },
+        {
+          "text": "I’m off"
+        },
+        {
+          "text": "I'm out"
+        },
+        {
+          "text": "I’m out of here"
+        },
+        {
+          "text": "It was nice chatting with you"
+        },
+        {
+          "text": "I want to quit"
+        },
+        {
+          "text": "Ok goodbye"
+        },
+        {
+          "text": "See ya"
+        },
+        {
+          "text": "See you"
+        },
+        {
+          "text": "See you later"
+        },
+        {
+          "text": "See you later!"
+        },
+        {
+          "text": "Shut up"
+        },
+        {
+          "text": "Stop doing this"
+        },
+        {
+          "text": "Stop talking to me"
+        },
+        {
+          "text": "Take care"
+        },
+        {
+          "text": "Thanks, bye!"
+        },
+        {
+          "text": "Thanks very much, bye!"
+        },
+        {
+          "text": "Thank you for your time"
+        },
+        {
+          "text": "That is all"
+        },
+        {
+          "text": "That's everything"
+        },
+        {
+          "text": "Time to go"
+        },
+        {
+          "text": "Toodle-oo"
+        },
+        {
+          "text": "Write to you later"
+        }
+      ],
+      "description": "End dialogue"
+    },
+    {
+      "intent": "General_Greetings",
+      "examples": [
+        {
+          "text": "G’day"
+        },
+        {
+          "text": "Good afternoon"
+        },
+        {
+          "text": "Good day"
+        },
+        {
+          "text": "Good evening"
+        },
+        {
+          "text": "Good morning"
+        },
+        {
+          "text": "Good to see you"
+        },
+        {
+          "text": "Greetings"
+        },
+        {
+          "text": "Have you been well?"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hello Agent"
+        },
+        {
+          "text": "Hello friend"
+        },
+        {
+          "text": "Hello I am looking for some help here"
+        },
+        {
+          "text": "Hey"
+        },
+        {
+          "text": "Hey how are you doing"
+        },
+        {
+          "text": "Hey there"
+        },
+        {
+          "text": "Hey there all"
+        },
+        {
+          "text": "Hey twin"
+        },
+        {
+          "text": "Hey you"
+        },
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "Hi advisor"
+        },
+        {
+          "text": "Hi there"
+        },
+        {
+          "text": "How are things going?"
+        },
+        {
+          "text": "How are you today?"
+        },
+        {
+          "text": "Howdy"
+        },
+        {
+          "text": "How have you been?"
+        },
+        {
+          "text": "How is it going?"
+        },
+        {
+          "text": "How r u?"
+        },
+        {
+          "text": "Looking good eve"
+        },
+        {
+          "text": "Morning"
+        },
+        {
+          "text": "Ok take me back"
+        },
+        {
+          "text": "Sup"
+        },
+        {
+          "text": "What's new?"
+        },
+        {
+          "text": "What’s new?"
+        },
+        {
+          "text": "What's up?"
+        },
+        {
+          "text": "What’s up"
+        },
+        {
+          "text": "Who is this?"
+        },
+        {
+          "text": "Yo"
+        },
+        {
+          "text": "You there"
+        }
+      ],
+      "description": "Start the dialogue"
+    },
+    {
+      "intent": "more_places",
+      "examples": [
+        {
+          "text": "Can you suggest what to see nearby"
+        },
+        {
+          "text": "I'm tired of walking the path"
+        },
+        {
+          "text": "I want to see other places nearby"
+        },
+        {
+          "text": "I want to see something interesting"
+        },
+        {
+          "text": "What interesting places are nearby"
+        },
+        {
+          "text": "What places can I visit additionally?"
+        }
+      ],
+      "description": "Additional interests of the user about places in the city"
+    },
+    {
+      "intent": "no",
+      "examples": [
+        {
+          "text": "Absolutely not."
+        },
+        {
+          "text": "no"
+        },
+        {
+          "text": "No thanks."
+        },
+        {
+          "text": "No way"
+        },
+        {
+          "text": "Please do not!"
+        },
+        {
+          "text": "Please don't."
+        },
+        {
+          "text": "That's not what I want at all"
+        }
+      ],
+      "description": "No answear from the user"
+    },
+    {
+      "intent": "ready_made_path",
+      "examples": [
+        {
+          "text": "Can I go with existing path"
+        },
+        {
+          "text": "Do you have ready tours?"
+        },
+        {
+          "text": "Existing path"
+        },
+        {
+          "text": "holesovice tour"
+        },
+        {
+          "text": "I want go with ready tour"
+        },
+        {
+          "text": "I want ready tour"
+        },
+        {
+          "text": "I want to go with preapared path"
+        },
+        {
+          "text": "I want to go with ready-made path"
+        },
+        {
+          "text": "I want to go with yours path"
+        },
+        {
+          "text": "old town tour"
+        },
+        {
+          "text": "ready-made path"
+        },
+        {
+          "text": "Ready tour"
+        },
+        {
+          "text": "what existing paths do you recommend?"
+        },
+        {
+          "text": "what existing ways do you suggest"
+        },
+        {
+          "text": "Your route"
+        }
+      ],
+      "description": "User want to go existing path "
+    },
+    {
+      "intent": "yes",
+      "examples": [
+        {
+          "text": "Correct"
+        },
+        {
+          "text": "Please do."
+        },
+        {
+          "text": "Please do that."
+        },
+        {
+          "text": "that is correct."
+        },
+        {
+          "text": "That's right"
+        },
+        {
+          "text": "yeah"
+        },
+        {
+          "text": "yes"
+        },
+        {
+          "text": "Yes, I'd like to go ahead with that."
+        },
+        {
+          "text": "You've got it right."
+        },
+        {
+          "text": "Yup"
+        }
+      ],
+      "description": "When user agrees with what assistant is proposing."
+    }
+  ],
+  "entities": [
+    {
+      "entity": "ask_moving_to_next_point",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Next point",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "wait",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "category_of_interests",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Gallery",
+          "synonyms": [
+            "galerie",
+            "galleria",
+            "galleries",
+            "gallery"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Monuments",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Museums",
+          "synonyms": [
+            "museum"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Parks",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Restaurants, bars",
+          "synonyms": [
+            "Restaurants and bars"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "decision_about_creating_tour",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Finish selection",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "More points",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "in_place",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Help",
+          "synonyms": [
+            "Help to get to the palce"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Here",
+          "synonyms": [
+            "I'm here"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "location",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Blahnikova",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Hlavni nadrazi",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Stepanska",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Vaclavske namesti",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "path_selection",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Find interesting places nearby",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "own",
+          "synonyms": [
+            "customise",
+            "customize",
+            "individualize",
+            "personal",
+            "personalise",
+            "personalize"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "ready-made",
+          "synonyms": [
+            "instructed",
+            "intended",
+            "planned",
+            "prepared",
+            "preparing",
+            "ready",
+            "required"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "rate",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Bad.",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Good!",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "I really liked it!",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Just fine",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Not very good.",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "ready-made-tours",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "From Vinohrady to Zizkov tour",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Holesovice tour",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Little Quarter tour",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Old Town tour",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": false
+    },
+    {
+      "entity": "ready_to_start",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Not ready",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Ready",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-date",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-time",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "travelMode",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "driving",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "walking",
+          "synonyms": [
+            "walk"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    },
+    "from-sample": true
+  },
+  "webhooks": [
+    {
+      "url": "https://tourguidechatbotprague.eu-de.mybluemix.net/myplaces",
+      "name": "main_webhook",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json;charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_9_1613671314575",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Find interesting places ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Okey. To find something, I need a few things."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "rating": ""
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#more_places || #drink_something || #eat_something ||  @path_selection:(Find interesting places nearby)",
+      "digress_in": "returns",
+      "dialog_node": "node_10_1616247096309",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_3_1617296057054"
+    },
+    {
+      "type": "standard",
+      "title": "Decide about choosing next waypoint or finish the selection",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "title": "What do you want to do next?",
+            "options": [
+              {
+                "label": "Choose more points",
+                "value": {
+                  "input": {
+                    "text": "More points"
+                  }
+                }
+              },
+              {
+                "label": "Finish the selection and create a tour",
+                "value": {
+                  "input": {
+                    "text": "Finish selection"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_5_1615228784368",
+      "context": {},
+      "conditions": "$waypoints.size() >= 2 && $waypoints.size() < 10",
+      "dialog_node": "node_10_1616629748329",
+      "previous_sibling": "node_3_1615229953695"
+    },
+    {
+      "type": "standard",
+      "title": "Another places",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Write next name of the place to be included in the tour. <br><br>P.S. It can be the name of monuments, churches, museums, galleries or parks."
+              },
+              {
+                "text": "What is the name of the next place you want to visit? <br><br>P.S. It can be the name of monuments, churches, museums, galleries or parks."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1615229953695",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_4_1616520220157"
+      },
+      "conditions": "",
+      "dialog_node": "node_10_1617621885306",
+      "previous_sibling": "node_8_1617621857030"
+    },
+    {
+      "type": "standard",
+      "title": "Help with anything else ",
+      "output": {
+        "generic": [
+          {
+            "title": " Is there anything else I can help you with?",
+            "options": [
+              {
+                "label": "🔎 Find interesting places nearby",
+                "value": {
+                  "input": {
+                    "text": "Find interesting places nearby"
+                  }
+                }
+              },
+              {
+                "label": "Choose or create tour",
+                "value": {
+                  "input": {
+                    "text": "Choose or create tour"
+                  }
+                }
+              },
+              {
+                "label": "🤗 That's all, thanks",
+                "value": {
+                  "input": {
+                    "text": "That's all, thanks"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "helpWithAnythingElse": false
+      },
+      "conditions": "$helpWithAnythingElse == true",
+      "dialog_node": "node_10_1618952013629",
+      "previous_sibling": "node_10_1616247096309"
+    },
+    {
+      "type": "standard",
+      "title": "Choose more points",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_10_1616629748329",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_10_1617621885306"
+      },
+      "conditions": "@decision_about_creating_tour:(More points)",
+      "dialog_node": "node_1_1616630503812"
+    },
+    {
+      "type": "standard",
+      "title": "End with choosing",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_10_1616629748329",
+      "context": {
+        "getPlaceFromUser": false,
+        "webhook_result_2": "status: \"END\""
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_2_1617359746380"
+      },
+      "conditions": "@decision_about_creating_tour:(Finish selection)",
+      "dialog_node": "node_1_1616630514738",
+      "previous_sibling": "node_1_1616630503812"
+    },
+    {
+      "type": "standard",
+      "title": "Webhook - information about place",
+      "parent": "node_3_1617296057054",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "getWikiInfo": true,
+            "placeNameForWiki": "<?$waypointsAllInfoOrdered[0].name?>"
+          },
+          "result_variable": "webhook_result_7_wiki_info"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "@in_place",
+      "dialog_node": "node_1_1617296088910",
+      "previous_sibling": "node_7_1617282238618"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "<?$waypointsAllInfoOrdered[0].photo1?>",
+            "response_type": "image"
+          },
+          {
+            "values": [
+              {
+                "text": "<br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1617282238618",
+      "metadata": {
+        "_customization": {
+          "mcr": false
+        }
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_7_1618175994369"
+      },
+      "conditions": "$waypointsAllInfoOrdered[0].has('photo1')",
+      "dialog_node": "node_1_1618173514027",
+      "previous_sibling": "response_4_1617716867096"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "<?$waypointsAllInfoOrdered[0].photo2?> ",
+            "response_type": "image"
+          },
+          {
+            "values": [
+              {
+                "text": "<br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1617296088910",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_4_1618421099905"
+      },
+      "conditions": "$waypointsAllInfoOrdered[0].has('photo2')",
+      "dialog_node": "node_1_1618245513525",
+      "previous_sibling": "node_3_1621030037541"
+    },
+    {
+      "type": "standard",
+      "title": "FINISH",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You have visited all the places on this tour! Hope you enjoyed it. 😊 <br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1617296057054",
+      "context": {
+        "helpWithAnythingElse": true,
+        "startPassageOfTheRoute": false
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "$waypointsAllInfoOrdered.size() == 0",
+      "dialog_node": "node_1_1618419920047",
+      "previous_sibling": "node_1_1617296088910"
+    },
+    {
+      "type": "standard",
+      "title": "Clean variables",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_8_1617645500606",
+      "context": {
+        "waypoint": null,
+        "waypoints": null,
+        "waypointsAllInfo": null,
+        "webhook_result_5": null,
+        "webhook_result_6": null,
+        "askIfReadyToStart": true
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_8_1616448631798"
+      },
+      "conditions": "true",
+      "dialog_node": "node_1_1618954161062"
+    },
+    {
+      "type": "standard",
+      "title": "Webhook - create route",
+      "parent": "node_5_1615228784368",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "waypoints": "$waypoints",
+            "travelMode": "$travelMode",
+            "waypointsAllInfo": "$waypointsAllInfo",
+            "getOrderedWaypointsAndMapsLink": true
+          },
+          "result_variable": "webhook_result_5"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_8_1617645500606"
+      },
+      "conditions": "",
+      "dialog_node": "node_2_1617359746380",
+      "previous_sibling": "node_10_1616629748329"
+    },
+    {
+      "type": "standard",
+      "title": "First place",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "▶️ Write the name of the <b>FIRST</b> place where the tour will start.  <br><br>P.S. It can be the name of monuments, churches, museums, galleries or parks."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1615229953695",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_4_1616520220157"
+      },
+      "dialog_node": "node_2_1617621768200"
+    },
+    {
+      "type": "standard",
+      "title": "Description of selected tour ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<? $tourFromDb.get(0).tourDescription?>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "<br>\nThe tour will take <? $tourFromDb.get(0).duration ?> . You will visit <b><? $tourFromDb.get(0).waypoints.size() ?> points</b> of interest in the area such as <? $tourFromDb.get(0).waypoints.join(', ') ?>. <br><br><b> You can see route on 🗺️ <a  target=\"_blank\" href=\"<? $tourFromDb.get(0).mapsLink ?> \">Google Maps</a>.<b>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1615229784413",
+      "context": {
+        "findTourFromDb": false,
+        "askIfReadyToStart": true
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1616448631798"
+      },
+      "conditions": "@ready-made-tours",
+      "dialog_node": "node_2_1618933640280"
+    },
+    {
+      "type": "standard",
+      "title": "Save nearby places in arr",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_4_1618955355914",
+      "context": {
+        "nearbyPlacesArray": "$webhook_result_nearby_places.placesArray"
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_2_1619026249330"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "context": {
+        "getRating": true
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_2_1618933640280"
+      },
+      "conditions": "$startDialogWithRreadyTour == true",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_2_1620042075066",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": " Start choosing the places",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Now let's start choosing the places that you want to add to your tour.  😎"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1615228784368",
+      "context": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_2_1617621768200"
+      },
+      "conditions": "$travelMode",
+      "dialog_node": "node_3_1615229953695",
+      "previous_sibling": "node_3_1617618691672"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_7_1618175994369",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_1_1617296088910"
+      },
+      "conditions": "@in_place:Here",
+      "dialog_node": "node_3_1617282947589"
+    },
+    {
+      "type": "standard",
+      "title": " Passage of the tour",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Let's start! <br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "startPassageOfTheRoute": false,
+        "startDialogWithRreadyTour": false
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_7_1617282238618"
+      },
+      "conditions": "@ready-made-tours || $startPassageOfTheRoute == true",
+      "dialog_node": "node_3_1617296057054",
+      "previous_sibling": "node_8_1616448631798"
+    },
+    {
+      "type": "standard",
+      "title": "Save travelMode",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_5_1615228784368",
+      "context": {
+        "travelMode": "@travelMode"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_3_1615229953695"
+      },
+      "conditions": "@travelMode",
+      "dialog_node": "node_3_1617618691672"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_9_1615847557694",
+      "context": {
+        "categoryOfInterest": "@category_of_interests"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_4_1618955355914"
+      },
+      "conditions": "@category_of_interests",
+      "dialog_node": "node_3_1619021784392"
+    },
+    {
+      "type": "standard",
+      "title": "check if last",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "If you want more places you can see in on <a target=\"_blank\" href=\"<?$webhook_result_nearby_places.mapsUrlCategorySearch?>\">Google Maps</a>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1619025912696",
+      "context": {
+        "helpWithAnythingElse": true
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_10_1618952013629"
+      },
+      "conditions": "$nearbyPlacesArray.size() == 0",
+      "dialog_node": "node_3_1619026546672"
+    },
+    {
+      "type": "standard",
+      "title": "Save rating",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thanks for the feedback!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1620489109764",
+      "context": {
+        "rating": "@rate"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_10_1618952013629"
+      },
+      "conditions": "@rate",
+      "dialog_node": "node_3_1619458014912"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You can also look at the <a target=\"_blank\" href=\"$waypointsAllInfoOrdered[0].website\">website</a> of this place."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1617296088910",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_1_1618245513525"
+      },
+      "conditions": "$waypointsAllInfoOrdered[0].has('website')",
+      "dialog_node": "node_3_1621030037541",
+      "previous_sibling": "response_8_1618248109663"
+    },
+    {
+      "type": "standard",
+      "title": "Get place from user",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_3_1615229953695",
+      "context": {
+        "waypoint": "<?input.text?>"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_5_1616629758334"
+      },
+      "conditions": "$waypoints",
+      "dialog_node": "node_4_1616520220157",
+      "previous_sibling": "node_10_1617621885306"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_9_1616629887483",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1617621857030"
+      },
+      "conditions": "$waypoints.size() < 2",
+      "dialog_node": "node_4_1616673728674"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<b>You can see this place on 🗺️ <a  target=\"_blank\" href=\"<?$waypointsAllInfoOrdered[0].url?>\">Google Maps</a>. <b>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1618175994369",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_7_1618175994369"
+      },
+      "conditions": "@in_place:Help",
+      "dialog_node": "node_4_1617283027010",
+      "previous_sibling": "node_3_1617282947589"
+    },
+    {
+      "type": "standard",
+      "title": "delete place ",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_1_1617296088910",
+      "context": {
+        "waypointsAllInfoOrdered": "<? $waypointsAllInfoOrdered.remove(0) ?>"
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_4_1618421099905",
+      "previous_sibling": "node_1_1618245513525"
+    },
+    {
+      "type": "standard",
+      "title": "Webhook - nearby search request",
+      "parent": "node_9_1615847557694",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "location": "$location",
+            "getNearbyPlaces": true,
+            "categoryOfInterest": "$categoryOfInterest"
+          },
+          "result_variable": "webhook_result_nearby_places"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "$location && $categoryOfInterest",
+      "dialog_node": "node_4_1618955355914",
+      "previous_sibling": "node_3_1619021784392"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_7_1619025912696",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_6_1619025419403"
+      },
+      "conditions": "$nearbyPlacesArray.size() != 0",
+      "dialog_node": "node_4_1619027149357",
+      "previous_sibling": "node_3_1619026546672"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "title": "How would you rate this tour?",
+            "options": [
+              {
+                "label": "I really liked it!",
+                "value": {
+                  "input": {
+                    "text": "I really liked it!"
+                  }
+                }
+              },
+              {
+                "label": "Good!",
+                "value": {
+                  "input": {
+                    "text": "Good!"
+                  }
+                }
+              },
+              {
+                "label": "Just fine ",
+                "value": {
+                  "input": {
+                    "text": "Just fine "
+                  }
+                }
+              },
+              {
+                "label": "Not very good.",
+                "value": {
+                  "input": {
+                    "text": "Not very good."
+                  }
+                }
+              },
+              {
+                "label": "Bad.",
+                "value": {
+                  "input": {
+                    "text": "Bad."
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_1_1618419920047",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_3_1619458014912"
+      },
+      "conditions": "$getRating == true",
+      "dialog_node": "node_4_1620489109764"
+    },
+    {
+      "type": "standard",
+      "title": "Create own path",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Now I will help you create your personal tour!😊"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "How do you want to travel this way?",
+            "options": [
+              {
+                "label": "🚶 Walk",
+                "value": {
+                  "input": {
+                    "text": "walking"
+                  }
+                }
+              },
+              {
+                "label": "🚘 By car ",
+                "value": {
+                  "input": {
+                    "text": "driving"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "getRating": false,
+        "waypoints": [],
+        "waypointsAllInfo": []
+      },
+      "conditions": "@path_selection:own || #create_own_path",
+      "dialog_node": "node_5_1615228784368",
+      "previous_sibling": "node_5_1616450870151"
+    },
+    {
+      "type": "standard",
+      "title": "Change tour",
+      "output": {
+        "generic": [
+          {
+            "title": "Do you want ready tour or create your own tour?",
+            "options": [
+              {
+                "label": "🔥 Ready tour",
+                "value": {
+                  "input": {
+                    "text": "Ready tour"
+                  }
+                }
+              },
+              {
+                "label": "🛠️ Create my own tour",
+                "value": {
+                  "input": {
+                    "text": "Create my own tour"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "rating": ""
+      },
+      "conditions": "#change_tour",
+      "dialog_node": "node_5_1616450870151",
+      "previous_sibling": "node_2_1620042075066"
+    },
+    {
+      "type": "standard",
+      "title": "Webhook - check if place exists",
+      "parent": "node_4_1616520220157",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "waypoint": "$waypoint",
+            "getPlaceFromUser": true
+          },
+          "result_variable": "webhook_result_2"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "$waypoint",
+      "dialog_node": "node_5_1616629758334"
+    },
+    {
+      "type": "standard",
+      "title": "check if last place",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_4_1618421099905",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_1_1618419920047"
+      },
+      "conditions": "$waypointsAllInfoOrdered.size() == 0",
+      "dialog_node": "node_5_1618420868343"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_9_1616629887483",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_10_1616629748329"
+      },
+      "conditions": "$waypoints.size() >= 2",
+      "dialog_node": "node_6_1616673973432",
+      "previous_sibling": "node_4_1616673728674"
+    },
+    {
+      "type": "standard",
+      "title": " Ask about moving to the next place",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<b>There are <? $waypointsAllInfoOrdered.size() ?>  places left to visit on this tour. </b> <br> <br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Are you ready to move on to the next point ?",
+            "options": [
+              {
+                "label": "Next point!",
+                "value": {
+                  "input": {
+                    "text": "Next point"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_4_1618421099905",
+      "conditions": "$waypointsAllInfoOrdered.size() > 0",
+      "dialog_node": "node_6_1618245668370",
+      "previous_sibling": "node_5_1618420868343"
+    },
+    {
+      "type": "standard",
+      "title": "Information about nearby place ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<b><?$nearbyPlacesArray[0].name?></b><br>\nRating: <?$nearbyPlacesArray[0].rating?><br>\nAddress:  <?$nearbyPlacesArray[0].address?><br>\nYou can see this place on <a target=\"_blank\" href=\"<?$nearbyPlacesArray[0].mapsUrl?>\">Google Maps</a>.<br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1619026249330",
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "$nearbyPlacesArray.size() != 0",
+      "dialog_node": "node_6_1619025419403"
+    },
+    {
+      "type": "standard",
+      "title": "Ask the location",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "What is your location?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1616247096309",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_9_1615847557694"
+      },
+      "conditions": "true",
+      "dialog_node": "node_7_1616430935445"
+    },
+    {
+      "type": "standard",
+      "title": "Place on the way",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Place on the way <b> <?$waypointsAllInfoOrdered[0].name?></b>. <br>You need to come to this address: <?$waypointsAllInfoOrdered[0].formatted_address?>.  <br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "<b>You can see this place on 🗺️ <a  target=\"_blank\" href=\"<?$waypointsAllInfoOrdered[0].url?>\">Google Maps</a>. <b>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1617296057054",
+      "metadata": {
+        "_customization": {
+          "mcr": false
+        }
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "$waypointsAllInfoOrdered.size() > 0",
+      "dialog_node": "node_7_1617282238618"
+    },
+    {
+      "type": "standard",
+      "title": "Ask if on the place",
+      "output": {
+        "generic": [
+          {
+            "title": "Are you at the place?",
+            "options": [
+              {
+                "label": "📍 I'm here",
+                "value": {
+                  "input": {
+                    "text": "Here"
+                  }
+                }
+              },
+              {
+                "label": "🆘 Help get to the place",
+                "value": {
+                  "input": {
+                    "text": "Help"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_7_1617282238618",
+      "conditions": "true",
+      "dialog_node": "node_7_1618175994369",
+      "previous_sibling": "node_1_1618173514027"
+    },
+    {
+      "type": "standard",
+      "title": "Delete place from nearby places",
+      "parent": "node_6_1619025419403",
+      "context": {
+        "nearbyPlacesArray": "<?$nearbyPlacesArray.remove(0)?>"
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_7_1619025912696"
+    },
+    {
+      "type": "standard",
+      "title": "Ask if ready to start",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Are you ready to start?",
+            "options": [
+              {
+                "label": "👍 Ready",
+                "value": {
+                  "input": {
+                    "text": "Ready"
+                  }
+                }
+              },
+              {
+                "label": "Change tour",
+                "value": {
+                  "input": {
+                    "text": "Change tour"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "askIfReadyToStart": false,
+        "startDialogWithRreadyTour": false
+      },
+      "conditions": "$askIfReadyToStart == true",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_8_1616448631798",
+      "previous_sibling": "node_9_1615229784413"
+    },
+    {
+      "type": "standard",
+      "title": "Last place",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "⏹️ Now write the <b>LAST</b> place,  which will be in your tour.  <br><br>P.S. It can be the name of monuments, churches, museums, galleries or parks."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1615229953695",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_4_1616520220157"
+      },
+      "dialog_node": "node_8_1617621857030",
+      "previous_sibling": "node_2_1617621768200"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_2_1617359746380",
+      "context": {
+        "googleMapsRouteLink": "$webhook_result_5.googleMapsLinkDir",
+        "waypointsAllInfoOrdered": "$webhook_result_5.waypointsAllInfoOrdered"
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "$webhook_result_5",
+      "dialog_node": "node_8_1617645500606"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_1_1618419920047",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_10_1618952013629"
+      },
+      "conditions": "$getRating == false",
+      "dialog_node": "node_8_1620489284092",
+      "previous_sibling": "node_4_1620489109764"
+    },
+    {
+      "type": "standard",
+      "title": "Say goodbye ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have a good day!😉"
+              },
+              {
+                "text": "Bye-bye 😊"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "rating": ""
+      },
+      "conditions": "#General_Ending",
+      "dialog_node": "node_9_1613671314575",
+      "previous_sibling": "node_10_1618952013629"
+    },
+    {
+      "type": "standard",
+      "title": "Ready-made path",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "There are <b>4 tours</b>  to choose from. <br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Let's choose:",
+            "options": [
+              {
+                "label": "Holešovice ",
+                "value": {
+                  "input": {
+                    "text": "Holesovice tour"
+                  }
+                }
+              },
+              {
+                "label": "From Vinohrady to Zizkov tour",
+                "value": {
+                  "input": {
+                    "text": "From Vinohrady to Zizkov tour"
+                  }
+                }
+              },
+              {
+                "label": "Old Town",
+                "value": {
+                  "input": {
+                    "text": "Old Town tour"
+                  }
+                }
+              },
+              {
+                "label": "Little Quarter",
+                "value": {
+                  "input": {
+                    "text": "Little Quarter tour"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "getRating": true,
+        "tourFromDb": [],
+        "findTourFromDb": true,
+        "waypointsAllInfoOrdered": []
+      },
+      "conditions": "@path_selection:ready-made || #ready_made_path",
+      "dialog_node": "node_9_1615229784413",
+      "previous_sibling": "node_5_1615228784368"
+    },
+    {
+      "type": "standard",
+      "title": "Find intresting places nearby with provided location",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I will try to find something interesting neraby $location."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "title": "What are you interested in:",
+            "options": [
+              {
+                "label": "Restaurants, bars",
+                "value": {
+                  "input": {
+                    "text": "Restaurants, bars"
+                  }
+                }
+              },
+              {
+                "label": "Museums",
+                "value": {
+                  "input": {
+                    "text": "Museums"
+                  }
+                }
+              },
+              {
+                "label": "Parks",
+                "value": {
+                  "input": {
+                    "text": "Parks"
+                  }
+                }
+              },
+              {
+                "label": "Galleries",
+                "value": {
+                  "input": {
+                    "text": "Galleries"
+                  }
+                }
+              },
+              {
+                "label": "Monuments",
+                "value": {
+                  "input": {
+                    "text": "Monuments"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_10_1616247096309",
+      "context": {
+        "location": "@location"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_3_1619021784392"
+      },
+      "conditions": "@location",
+      "dialog_node": "node_9_1615847557694",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_7_1616430935445"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_8_1616448631798",
+      "context": {
+        "findTourFromDb": false,
+        "startPassageOfTheRoute": true
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_3_1617296057054"
+      },
+      "conditions": "@ready_to_start:Ready",
+      "dialog_node": "node_9_1616449761782"
+    },
+    {
+      "type": "standard",
+      "title": "Place exists",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Here are the places that are included in your tour: <? $waypoints.join(', ') ?>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1616629758334",
+      "context": {
+        "waypoints": "<? context.waypoints.append($webhook_result_2.name)?>",
+        "waypointsAllInfo": "<? context.waypointsAllInfo.append($webhook_result_2)?>"
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "$waypoint && $webhook_result_2",
+      "dialog_node": "node_9_1616629887483",
+      "previous_sibling": "response_4_1616669185057"
+    },
+    {
+      "type": "standard",
+      "title": "Next point",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_6_1618245668370",
+      "context": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_7_1617282238618"
+      },
+      "conditions": "@ask_moving_to_next_point:(Next point)",
+      "dialog_node": "node_9_1617296578588"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I can't find <?$waypoint?>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1616629758334",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_10_1617621885306"
+      },
+      "conditions": "$webhook_result_2.status != \"OK\"",
+      "dialog_node": "response_10_1616675526150",
+      "previous_sibling": "response_4_1616669184102"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Something went wrong with creating route with creating route.."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_2_1617359746380",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_10_1616629748329"
+      },
+      "conditions": "anything_else",
+      "dialog_node": "response_10_1617359791852",
+      "previous_sibling": "response_8_1617359790049"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "source": "$webhook_result_8_photos.photo1",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_1_1618173514027",
+      "disabled": true,
+      "conditions": "$webhook_result_8_photos",
+      "dialog_node": "response_1_1618173977227"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_1_1618173514027",
+      "disabled": true,
+      "conditions": "anything_else",
+      "dialog_node": "response_1_1618173978395",
+      "previous_sibling": "response_1_1618173977227"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<?$webhook_result_7_wiki_info.extract.replace(\"==\", \"<br>\")?> <br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "More info on <a target=\"_blank\" href=\"$webhook_result_7_wiki_info.fullUrl\">wikipedia</a>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1617296088910",
+      "conditions": "$webhook_result_7_wiki_info.status == \"OK\"",
+      "dialog_node": "response_3_1618248109416"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Unfortunately, I didn't find any information about this place on Wikipedia."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1617296088910",
+      "conditions": "$webhook_result_7_wiki_info.status == \"NOT FOUND\"",
+      "dialog_node": "response_3_1618568212975",
+      "previous_sibling": "response_3_1618248109416"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "That's what i found: <b><? $webhook_result_2.name?></b>. Address: <? $webhook_result_2.formatted_address?> <br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1616629758334",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_9_1616629887483"
+      },
+      "conditions": "$webhook_result_2.status == \"OK\"",
+      "dialog_node": "response_4_1616669184102"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Something went wrong..."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_5_1616629758334",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_10_1617621885306"
+      },
+      "conditions": "anything_else",
+      "dialog_node": "response_4_1616669185057",
+      "previous_sibling": "response_10_1616675526150"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Something went wrong when get info about place"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1617282238618",
+      "disabled": true,
+      "conditions": "anything_else",
+      "dialog_node": "response_4_1617716867096",
+      "previous_sibling": "response_9_1618154433324"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Something went wrong..."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_4_1618955355914",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_7_1616430935445"
+      },
+      "conditions": "anything_else",
+      "dialog_node": "response_6_1618955396233",
+      "previous_sibling": "response_9_1619025220723"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Congrats! Your personal tour is ready! It consists of <?$webhook_result_5.waypointsAllInfoOrdered.size()?> points .  <br><br>Go to <a  target=\"_blank\" href=\"$webhook_result_5.googleMapsLinkDir\">Google Maps</a> and see your route."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1617359746380",
+      "conditions": "$webhook_result_5.status == \"OK\"",
+      "dialog_node": "response_8_1617359790049",
+      "previous_sibling": "node_8_1617645500606"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Sorry, something went wrong..."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_1_1617296088910",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_7_1617282238618"
+      },
+      "conditions": "anything_else",
+      "dialog_node": "response_8_1618248109663",
+      "previous_sibling": "response_3_1618568212975"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Place on the way <?$webhook_result_7_place_details.name?>. You need to come to this address: <?$webhook_result_7_place_details.address?>.  "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "You can see this place on <a  target=\"_blank\" href=\"$webhook_result_7_place_details.url\">Google Maps</a>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1617282238618",
+      "disabled": true,
+      "conditions": "$webhook_result_7_place_details",
+      "dialog_node": "response_9_1618154433324"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I found the following open $categoryOfInterest: <br><br>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1618955355914",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_2_1619026249330"
+      },
+      "conditions": "$webhook_result_nearby_places.placesArray.size() != 0",
+      "dialog_node": "response_9_1618955394942",
+      "previous_sibling": "node_2_1619026249330"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Sorry, I didn't find any place from this category that is working right now."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1618955355914",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_9_1615847557694"
+      },
+      "conditions": "$webhook_result_nearby_places.placesArray.size() == 0",
+      "dialog_node": "response_9_1619025220723",
+      "previous_sibling": "response_9_1618955394942"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello.  <br>\nI am your <b>Prague tour guide</b> and I will be happy to show you interesting places of this wonderful city.  <br><br>\nI made some tours for you, including interesting information about local places. <br>\nBut you can also create your own journey. I will try to find all the places that you want to visit and make the tour most optimal for you.  <br><br>\n<b>Let's start!</b> \n<br><br>\n"
+              },
+              {
+                "text": "Hi!"
+              },
+              {
+                "text": "Hello"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "What do you prefer?",
+            "options": [
+              {
+                "label": "🔥 Ready tour",
+                "value": {
+                  "input": {
+                    "text": "Ready tour"
+                  }
+                }
+              },
+              {
+                "label": "🛠️ Create my own tour",
+                "value": {
+                  "input": {
+                    "text": "Create my own tour"
+                  }
+                }
+              },
+              {
+                "label": "🔎 Find interesting places nearby ",
+                "value": {
+                  "input": {
+                    "text": "Find interesting places nearby "
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "rating": "",
+        "askIfReadyToStart": false,
+        "helpWithAnythingElse": false,
+        "startPassageOfTheRoute": false
+      },
+      "conditions": "welcome || #General_Greetings",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [
+    {
+      "text": "namesti miru"
+    }
+  ],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": false,
+      "randomize": true,
+      "max_suggestions": 3,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": false
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
