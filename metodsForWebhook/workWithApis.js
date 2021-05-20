@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const axios = require("axios");
 const key = process.env.GOOGLE_MAPS_APIKEY;
 

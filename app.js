@@ -1,3 +1,6 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable quotes */
+/* eslint-disable linebreak-style */
 /**
  *
  * Copyright 2015 IBM Corp. All Rights Reserved.

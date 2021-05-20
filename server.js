@@ -1,4 +1,4 @@
-#!/usr/bin/env
+/* eslint-disable linebreak-style */
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
@@ -18,8 +18,6 @@
 "use strict";
 
 require("dotenv").config({ silent: true });
-
-const path = require("path");
 
 var server = require("./app");
 

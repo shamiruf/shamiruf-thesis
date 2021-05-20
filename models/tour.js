@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 // Waypoint model to make queries
 const Waypoint = require("./waypoint");
 const mongoose = require("mongoose");

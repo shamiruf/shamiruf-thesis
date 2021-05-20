@@ -1,3 +1,6 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable indent */
+/* eslint-disable linebreak-style */
 const axios = require("axios");
 
 async function saveRatingInDb(response) {
