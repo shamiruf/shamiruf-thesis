@@ -41,10 +41,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                8,
-                20
-              ]
+              "location": [8, 20]
             }
           ]
         },
@@ -53,10 +50,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                0,
-                12
-              ]
+              "location": [0, 12]
             }
           ]
         },
@@ -65,10 +59,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                0,
-                14
-              ]
+              "location": [0, 14]
             }
           ]
         },
@@ -77,10 +68,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                25,
-                37
-              ]
+              "location": [25, 37]
             }
           ]
         },
@@ -89,10 +77,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                13,
-                25
-              ]
+              "location": [13, 25]
             }
           ]
         },
@@ -101,17 +86,11 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                14,
-                24
-              ]
+              "location": [14, 24]
             },
             {
               "entity": "location",
-              "location": [
-                25,
-                26
-              ]
+              "location": [25, 26]
             }
           ]
         },
@@ -120,10 +99,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                15,
-                26
-              ]
+              "location": [15, 26]
             }
           ]
         },
@@ -132,10 +108,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                0,
-                11
-              ]
+              "location": [0, 11]
             }
           ]
         },
@@ -144,10 +117,7 @@
           "mentions": [
             {
               "entity": "location",
-              "location": [
-                0,
-                19
-              ]
+              "location": [0, 19]
             }
           ]
         }
@@ -724,12 +694,7 @@
         {
           "type": "synonyms",
           "value": "Gallery",
-          "synonyms": [
-            "galerie",
-            "galleria",
-            "galleries",
-            "gallery"
-          ]
+          "synonyms": ["galerie", "galleria", "galleries", "gallery"]
         },
         {
           "type": "synonyms",
@@ -739,9 +704,7 @@
         {
           "type": "synonyms",
           "value": "Museums",
-          "synonyms": [
-            "museum"
-          ]
+          "synonyms": ["museum"]
         },
         {
           "type": "synonyms",
@@ -751,9 +714,7 @@
         {
           "type": "synonyms",
           "value": "Restaurants, bars",
-          "synonyms": [
-            "Restaurants and bars"
-          ]
+          "synonyms": ["Restaurants and bars"]
         }
       ],
       "fuzzy_match": true
@@ -780,16 +741,12 @@
         {
           "type": "synonyms",
           "value": "Help",
-          "synonyms": [
-            "Help to get to the palce"
-          ]
+          "synonyms": ["Help to get to the palce"]
         },
         {
           "type": "synonyms",
           "value": "Here",
-          "synonyms": [
-            "I'm here"
-          ]
+          "synonyms": ["I'm here"]
         }
       ],
       "fuzzy_match": true
@@ -950,9 +907,7 @@
         {
           "type": "synonyms",
           "value": "walking",
-          "synonyms": [
-            "walk"
-          ]
+          "synonyms": ["walk"]
         }
       ],
       "fuzzy_match": true
@@ -2617,9 +2572,7 @@
       "type": "response_condition",
       "output": {
         "text": {
-          "values": [
-            "Something went wrong..."
-          ],
+          "values": ["Something went wrong..."],
           "selection_policy": "sequential"
         }
       },
@@ -2658,9 +2611,7 @@
       "type": "response_condition",
       "output": {
         "text": {
-          "values": [
-            "Something went wrong..."
-          ],
+          "values": ["Something went wrong..."],
           "selection_policy": "sequential"
         }
       },
@@ -2698,9 +2649,7 @@
       "type": "response_condition",
       "output": {
         "text": {
-          "values": [
-            "Sorry, something went wrong..."
-          ],
+          "values": ["Sorry, something went wrong..."],
           "selection_policy": "sequential"
         }
       },
