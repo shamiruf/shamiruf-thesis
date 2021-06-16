@@ -1,7 +1,7 @@
 <h1 align="center" style="border-bottom: none;">Prague Tour Guide Chatbot</h1>
 <h2 align="center"> Web application with Watson Assistant chatbot </h2>
 <p> Backend - Node.js with <a href="https://cloud.ibm.com/apidocs/assistant-v2#introduction">Watson Assistant V2 API</a>. The basis for the backend is taken from <a href="the basis for the backend is taken from">Watson Assistant Sample Application</a>.</p>
-<p> Frontend - React.js. </p>
+<p> Frontend - React.js, Redux. </p>
 
 <h2> Run locally </h2>
   
