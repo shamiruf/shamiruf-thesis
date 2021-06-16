@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const workWithApis = require("../metodsForWebhook/workWithApis");
+const workWithApis = require("../methodsForWebhook/workWithApis");
 
 router.get("/", function (req, res) {
   res.send("Work with places and routes.");
